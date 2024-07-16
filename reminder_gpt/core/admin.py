@@ -8,8 +8,8 @@ from . models import Registry
 class RegistryAdmin(admin.ModelAdmin):
 
     readonly_fields = ('created' , 'updated')
-    #list_display = ('project_name', 'user'  , 'created' , 'updated')
-    #search_fields = ('project_name' , 'user__username' , 'content')
-    #list_filter = ('user__username' , 'project_name')
+    list_display = ('project_name', 'user'  , 'created' , 'updated')
+    search_fields = ('project_name' , 'user__username' , 'content')
+    list_filter = ('user__username' , 'project_name')
 
 admin.site.register(Registry , RegistryAdmin)

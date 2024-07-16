@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import Config , config , Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-48d8p1c1)oyke%v45!l(8^_&x%dhb$g7l-=hzk5j&l4$ymos2#'
+SECRET_KEY = Config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['tonipracticasblendar.pythonanywhere.com' , 'localhost' , '127.0.01']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS' , cast = Csv())
 
 
 # Application definition
@@ -76,14 +77,23 @@ WSGI_APPLICATION = 'reminder_gpt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ToniPracticasBle$ToniPracticasBleDB',
-        'USER': 'ToniPracticasBle',
-        'PASSWORD': '12345678dB',
-        'HOST': 'ToniPracticasBlendar.mysql.pythonanywhere-services.com',
-        'PORT': 3306,
+        'ENGINE': config('DB_ENGINE'),
+        'NAME': config('NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('PASSWORD') ,
+        'HOST': config('HOST'),
+        'PORT': config('PORT'),
     }
 }
+
+# Añadir impresiones para depuración
+print("Database ENGINE:", config('DB_ENGINE'))
+print("Database NAME:", config('NAME'))
+print("Database USER:", config('DB_USER'))
+print("Database PASSWORD:", config('PASSWORD'))
+print("Database HOST:", config('HOST'))
+print("Database PORT:", config('PORT'))
+
 
 
 # Password validation
