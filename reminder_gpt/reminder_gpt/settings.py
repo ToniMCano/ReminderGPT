@@ -12,8 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-48d8p1c1)oyke%v45!l(8^_&x%dhb$g7l-=hzk5j&l4$ymos2#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost' , '127.0.0.1']
 
 
 # Application definition
@@ -74,14 +76,16 @@ WSGI_APPLICATION = 'reminder_gpt.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+
+# Django settings
+
+
+# Database settings
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ToniPracticasBle$ToniPracticasBleDB',
-        'USER': 'ToniPracticasBle',
-        'PASSWORD': '12345678dB',
-        'HOST': 'ToniPracticasBlendar.mysql.pythonanywhere-services.com',
-        'PORT': 3306,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
