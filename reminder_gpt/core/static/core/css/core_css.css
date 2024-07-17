@@ -1,0 +1,131 @@
+*{
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+body {
+background: #44A08D;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #093637, #44A08D);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #093637, #44A08D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+header{
+  display: flex;
+  color: white;
+  padding: 0;
+  justify-content: center;
+  height: 10vh;
+  background:#09363762;
+  align-items: center;
+}
+
+footer{
+  display:flex;
+  background:#09363762;
+  height: 10vh;
+}
+
+footer > div{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer > div > a{
+  text-decoration: none;
+  color: white;
+  font-weight: bolder;
+  margin: 2em;
+}
+
+
+.container {
+  height: 80vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+} 
+
+
+form > h2{
+  color: white;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  margin-bottom: 2em;
+  padding-top: 0;
+} 
+
+
+.container form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  backdrop-filter: blur(10px);
+  padding: 5em;
+  border-radius: 1em;
+  background: rgba(255, 255, 255, 0.219);
+  box-shadow: 2px 1px 0.5em white;
+  flex-wrap: wrap;
+} 
+
+
+.container > form label{
+  color: white;
+  font-weight: bolder;
+  margin-left: 1em;
+}
+
+
+.container > form div{
+  margin:  0.2em 1em;
+}
+
+.button{
+  display: flex;
+  justify-content: center;
+}
+
+button{
+  width: 100%;
+  justify-content: center;
+  border-radius: 0.5em;
+  height: 3em;
+  align-items: center;
+   background: rgba(255, 255, 255, 0.603);
+   color: rgb(49, 49, 49);
+   font-weight: 600;
+  margin: 1em;
+}
+
+input{
+  border-radius: 0.3em;
+  height: 2em;
+}
+
+h2 {
+  display: block;
+}
+
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
