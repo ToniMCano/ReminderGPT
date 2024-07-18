@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from . models import Registry
+from . models import Registry , Profile
 
 # Register your models here.
 class RegistryAdmin(admin.ModelAdmin):
@@ -13,3 +13,10 @@ class RegistryAdmin(admin.ModelAdmin):
     list_filter = ('user__username' , 'project_name')
 
 admin.site.register(Registry , RegistryAdmin)
+
+
+class ProfileAdmin(admin.ModelAdmin):
+    
+    list_display = ('user',)
+    
+admin.site.register(Profile , ProfileAdmin)

@@ -22,16 +22,27 @@ class SignUpForm(UserCreationForm):
 
         if len(tlf) != 9:
             raise forms.ValidationError("El tlf debe tener exactamente 9 dígitos.")
-
+        
         return tlf
 
     def save(self, commit=True):
         user = super().save(commit=False)
         user.save()
-        profile = Profile.objects.create(user=user, tlf=self.cleaned_data['tlf']) # Creamos un objeto Profile con los datos del modelo usuario y el campo adiciónal tlf
+
+        # Verificar si el usuario ya tiene un perfil asociado
+        #if hasattr(user, 'profile'):
+            # Si el perfil ya existe, lanzar un error o manejar la situación según tu lógica de negocio
+            #print("Este usuario ya tiene un perfil asociado.")
+        
+        # Crear el perfil asociado al usuario
+        profile = Profile.objects.create(user=user, tlf=self.cleaned_data['tlf'])
+        print(profile)
+
+        print(profile.user)
+
+        print(profile.tlf)
+
         return user
-
-
 
 
 

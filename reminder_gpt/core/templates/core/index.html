@@ -7,7 +7,12 @@
 {% endif %}
 
 <div class = "container">
-  <form method="post" , action = "{% url 'sign_up' %}">
+  
+  {% if succes == 'Ok' %}
+  Usuario creado correctamente.
+  {% endif %}
+    
+  <form method="post" , action = "{% url 'validate' %}">
       {% csrf_token %}  
       <div class="form-group">
           <label for="">Usuario</label>

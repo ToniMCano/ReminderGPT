@@ -36,7 +36,7 @@ class Registry(models.Model):
 
 class Profile(models.Model):   # Lo usaremos para extedner el modelo usuario con el teléfono
     user = models.OneToOneField(User, on_delete=models.CASCADE) # Relaciona user con la clase User
-    tfl = models.CharField(max_length = 9)
+    tlf = models.CharField(max_length = 9)
 
     def __str__(self):
         return f'Crado Usuario: {self.user.username}'

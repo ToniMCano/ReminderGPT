@@ -7,32 +7,40 @@
 {% endif %}
 
 <div class = "container">
-    <form method="post" , action = "{% url 'sign_in' %}">
+    <form method="post" , action = "{% url 'sign_up' %}">
         <h2>Registro de Usuario</h2>
+        
+        {% if not_valid == True%} 
+        <h3>Datos Incorrectos</h3>
+        {% endif %}
+            
         {% csrf_token %}  
         <div class="form-group">
             <label for="">Usuario</label>
             <div class="input-group">
                 {{ form.username }}
+               <!-- {{ form.username.errors }}>-->
+                
             </div>
               <label for="">Email</label>
               <div class="input-group">
                   {{ form.email }}
-              </div>
+                 <!-- {{ form.email.errors }} --> 
+             </div>
               <label for="">Teléfono</label>
               <div class="input-group">
                 {{ form.tlf }}
-                {{ form.tlf.errors }}
-              </div>
+               <!-- {{ form.tlf.errors }} --> 
+             </div>
               <label for="">Contraseña</label>
               <div class="input-group">
                 {{ form.password1 }}
-            {{ form.password1.errors }}
+                <!--{{ form.password1.errors }} -->
               </div>
               <label for="">Repetir Contraseña</label>
               <div class="input-group">
                 {{ form.password2 }}
-                {{ form.password2.errors }}
+               <!-- {{ form.password2.errors }} -->
               </div>
              <div class = "button">
                 <button type="submit" class="btn btn-primary">Entrar</button>
