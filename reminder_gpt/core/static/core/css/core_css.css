@@ -141,3 +141,11 @@ h2 {
   font-weight: 100;
   font-style: normal;
 }
+
+
+.errores{
+  position: absolute;
+  top: 1em;
+  color:red;
+  font-weight: 900;
+}

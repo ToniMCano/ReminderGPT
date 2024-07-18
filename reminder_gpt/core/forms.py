@@ -45,5 +45,14 @@ class SignUpForm(UserCreationForm):
         return user
 
 
+class LoginForm(forms.Form):
+    
+    user = forms.CharField(label = "Usuario", max_length= 100 , required = True)
+    password = forms.CharField(label = "Password", widget=forms.PasswordInput , required = True)
+    
+    
+    
+    
+
 
     

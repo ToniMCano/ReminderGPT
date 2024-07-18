@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import login
-from .new_user_form import SignUpForm
+from django.contrib.auth import login , authenticate
+from .forms import SignUpForm , LoginForm
 from django.urls import path
 
 
@@ -10,14 +10,31 @@ from django.urls import path
 
 def home(request): # Es una prueba (SignUpForm registra usuarios),  hay que hacer un formulario para esta función.
     
-    form = SignUpForm() 
-   
-    return render(request , 'core/index.html', {'form' : form})
+    form = LoginForm() 
+    
+    if request.method == 'POST':
+        form = LoginForm(data = request.POST)
+        
+        if form.is_valid():
+            username = form.cleaned_data['user'] # cleaned_data es un diccionario dónde se almacenan los valores capturados en el formulario.
+            password = form.cleaned_data['password']
+            
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                
+                return redirect('test')  
+            
+            else:
+                form.add_error(None, 'Usuario o contrasesña incorrectos')
+    
+    return render(request, 'core/index.html', {'form': form})
     
     
-def validate(request):
+def test(request):
     
-    return redirect('sign_up')
+    return render(request , "core/test.html")
     
     
 def sign_up(request):
