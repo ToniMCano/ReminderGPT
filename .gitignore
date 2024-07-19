@@ -163,3 +163,5 @@ cython_debug/
 
 eval "$(ssh-agent -s)"
 eval "$(ssh-agent -s).pub"
+
+wsgi.py
