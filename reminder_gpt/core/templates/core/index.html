@@ -2,26 +2,25 @@
 
 
 {% block content %}
+
 {% if 'ok' in request.GET %}
-<p><b>Formulario enviado correctamente.</b></p>
+  <p><b>Formulario enviado correctamente.</b></p>
 {% endif %}
 
 <div class = "container">
-  
- 
-
   <form method="post" , action = "">
     {% csrf_token %}  
 
     {% if form.non_field_errors %}
     
-    {% for error in form.non_field_errors %} <!--ES la fomra en que Django comprueba si hay errores no asociados a un campo en concreto-->
-    <div class="errores">
-        <p>{{ error }}</p>
-    </div>
-    {% endfor %}
+      {% for error in form.non_field_errors %} <!--ES la fomra en que Django comprueba si hay errores no asociados a un campo en concreto-->
+      <div class="errores">
+          <p>{{ error }}</p>
+      </div>
+      {% endfor %}
 
     {% endif %}
+
     <div>
         <label for="">Usuario</label>
         <div>

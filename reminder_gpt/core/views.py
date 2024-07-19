@@ -47,8 +47,6 @@ def sign_up(request):
         
         if form.is_valid():
             user = form.save()
-            # Loguea al usuario inmediatamente después de registrarse 
-            #login(request, user)
 
             return redirect('home')  
         
@@ -73,10 +71,10 @@ def sing_in(request):
         if request.method == 'POST':
             form = SignUpForm(request.POST)
             if form.is_valid():
-                # Procesar formulario y guardar usuario
-                user = form.save()
-                # Opcional: iniciar sesión automáticamente después del registro
-                login(request, user)
+                
+                user = form.save() # Procesar formulario y guardar usuario
+                
+               #  login(request, user) iniciar sesión automáticamente después del registro
                
                 return redirect('index')
             
