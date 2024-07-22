@@ -149,3 +149,57 @@ h2 {
   color:red;
   font-weight: 900;
 }
+
+.individual_log{
+  display: flex;
+  background: rgba(255, 255, 255, 0.144);
+  flex-wrap: wrap;
+  border: 3px solid white;
+  border-radius: 1em;
+  margin:1em 4em;
+  padding: 0.5em;
+  color: white;
+}
+
+.individual_log span{
+font-weight: bolder;
+}
+
+.individual_log > div , .individual_log > div > div {
+  display: flex;
+  flex: 1
+}
+
+.individual_log > div {
+  min-width: 100%;
+  margin:0.2em;
+}
+
+.individual_log > div > div{
+  font-weight: bolder;
+  margin:0.2em;
+  background: rgba(255, 255, 255, 0.144);
+  padding: 0.5em;
+  border-radius: 0.3em;
+}
+
+.individual_log > div:nth-child(3){ 
+  margin:0.5em 0.2em;
+}
+
+.user_name  {
+  display: flex;
+}
+.user_name > p {
+  color: white;
+  font-weight: bolder;
+  margin:0.4em 0.3em 0.3em 4em;
+
+}
+
+.user_name > h2{
+  color: white;
+  font-weight: bolder;
+  margin:0;
+  padding: 0 0.2em ;
+}
