@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login , authenticate
 from .forms import SignUpForm , LoginForm
-from django.urls import path
+from django.urls import path , reverse
 
 
 # Create your views here.
@@ -24,7 +24,7 @@ def home(request): # Es una prueba (SignUpForm registra usuarios),  hay que hace
             if user is not None:
                 login(request, user)
                 
-                return redirect('test')  
+                return redirect(reverse('pages:pages_home'))  
             
             else:
                 form.add_error(None, 'Usuario o contrasesña incorrectos')
@@ -55,6 +55,13 @@ def sign_up(request):
  
 
     return render(request, "core/create_user.html", {'form': form , "not_valid": not_valid})
+
+
+def create_user(request):
+    
+    form = SignUpForm()
+    
+    return render(request , "core/create_user.html" , {'form':form})
 
 
 def sing_in(request):

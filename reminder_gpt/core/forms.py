@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User , Group
 from .models import Profile  
 
 
@@ -31,11 +31,11 @@ class SignUpForm(UserCreationForm):
         user.save()
 
         profile = Profile.objects.create(user=user, tlf=self.cleaned_data['tlf']) # Crear el perfil asociado al usuario
-        print(profile)
-
-        print(profile.user)
-
-        print(profile.tlf)
+        
+        group_name = 'basic_user'  
+        group, created = Group.objects.get_or_create(name=group_name)
+        
+        user.groups.add(group)
 
         return user
 
