@@ -18,6 +18,12 @@
   <body>
     <header>
       <h1>Reminder GPT</h1>
+      <div>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button style = "width:8em; margin-left:5em;" type="submit">Salir</button>
+        </form>
+    </div>
     </header>
     {% block content %}
       
