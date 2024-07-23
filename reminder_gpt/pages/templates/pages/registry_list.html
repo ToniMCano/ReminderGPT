@@ -24,8 +24,18 @@
         <div>
           <span>Log: </span><br> <br>{{registry.Log|linebreaksbr|truncatechars:"200"}}
         </div>
-        <br><a href="https://www.google.com" target="_blank">Leer Más</a>
+        <br><a href="{% url 'pages:page' registry.id registry.project_name|slugify%}" target="_blank">Leer Más</a>
     </div>
+    <div>
+        <a href="{% url 'pages:create'%}" target="_blank">Crear</a>
+    </div>
+    <div>
+        <a href="{% url 'pages:update' registry.id %}" target="_blank">Actualizar</a>
+    </div>
+    <div>
+        <a href="{% url 'pages:delete' registry.id %}" target="_blank">Leer Más</a>
+    </div>
+      
     
 {% endfor %}
     

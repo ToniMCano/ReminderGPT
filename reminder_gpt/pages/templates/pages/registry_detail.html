@@ -1,13 +1,34 @@
-
 {% extends 'core/base.html' %}
 
 
 {% block content %}
 
-<div>
-    {{title}}
+<div class = "user_name">
+    <p>Usuario:</p> <h2>{{user}}</h2>
 </div>
-    EStoy aquí
-{% endblock content %}
+
+
+
+
+    <div class = "individual_log">
+        <div>
+            <div>Nombre del Proyecto</div>
+            <div>Fecha de Creación</div>
+            <div>Última Actualización</div>
+        </div>
+        <div>
+            <div>{{registry.project_name}}</div>
+            <div>{{registry.created}}</div>
+            <div>{{registry.updated}}</div>
+        </div>
+        <div>
+          <span>Log: </span><br> <br>{{registry.Log|linebreaksbr|truncatechars:"200"}}
+        </div>
+        <br><a href="   " target="_blank">Leer Más</a>
+    </div>
     
 
+    
+    
+{% endblock content %}
+    
