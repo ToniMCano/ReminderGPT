@@ -5,6 +5,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView , UpdateView , DeleteView
 from django.urls import reverse , reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from .models import Registry
 
@@ -12,7 +14,7 @@ from .models import Registry
 
 # Create your views here.
 
-
+@method_decorator(login_required, name='dispatch')
 class PagesListView(ListView):
     
     model = Registry
@@ -25,11 +27,14 @@ class PagesListView(ListView):
         
         return context
     
+    
+@method_decorator(login_required, name='dispatch')
 class PagesDetailView(DetailView):
     
     model = Registry
     
-
+    
+@method_decorator(login_required, name='dispatch')
 class PageCreate(CreateView):
     
     model = Registry
@@ -43,7 +48,8 @@ class PageCreate(CreateView):
     def get_success_url(self):
         return reverse('pages:pages_home')
 
-    
+
+@method_decorator(login_required, name='dispatch')   
 class PageUpdate(UpdateView):
     
     model = Registry
@@ -55,7 +61,8 @@ class PageUpdate(UpdateView):
     def get_success_url(self):
         return reverse_lazy("pages:update" , args = [self.object.id]) + '?ok'
     
-    
+
+@method_decorator(login_required, name='dispatch')   
 class PageDelete(DeleteView):
     
     model = Registry

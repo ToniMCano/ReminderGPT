@@ -6,6 +6,9 @@
 <div class = "user_name">
     <p>Usuario:</p> <h2>{{user}}</h2>
 </div>
+<div class = "create">
+    <a href="{% url 'pages:create'%}" target="_blank">Crear +</a>
+</div>
 
 
 {% for registry in registry_list %}
@@ -22,19 +25,25 @@
             <div>{{registry.updated}}</div>
         </div>
         <div>
-          <span>Log: </span><br> <br>{{registry.Log|linebreaksbr|truncatechars:"200"}}
+          <span>Log: </span><br> <br>{{registry.log|linebreaksbr|truncatechars:"200"}}
         </div>
-        <br><a href="{% url 'pages:page' registry.id registry.project_name|slugify%}" target="_blank">Leer Más</a>
+        <div class = "links">
+            <div>
+                <div>
+                    <a href="{% url 'pages:page' registry.id registry.project_name|slugify%}" target="_blank">Leer Más</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <a href="{% url 'pages:update' registry.id %}" target="_blank">Actualizar</a>
+                </div>
+                <div>
+                    <a href="{% url 'pages:delete' registry.id %}" target="_blank">Eliminar</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <a href="{% url 'pages:create'%}" target="_blank">Crear</a>
-    </div>
-    <div>
-        <a href="{% url 'pages:update' registry.id %}" target="_blank">Actualizar</a>
-    </div>
-    <div>
-        <a href="{% url 'pages:delete' registry.id %}" target="_blank">Leer Más</a>
-    </div>
+
       
     
 {% endfor %}

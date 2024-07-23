@@ -80,14 +80,14 @@ WSGI_APPLICATION = 'reminder_gpt.wsgi.application'
 
 
 # Django settings
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-"""# Database settings
+"""
+# Database settings
 DATABASES = {
     'default': {
         'ENGINE': config('DB_ENGINE'),
@@ -98,7 +98,7 @@ DATABASES = {
         'PORT': config('DB_PORT', cast=int), # Convertir a entero
     }
 }
-"""
+
 
 
 
