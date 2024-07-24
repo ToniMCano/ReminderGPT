@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chat</title>
+    {% load static %}
+    <link href="{% static 'chat/css/chat.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Función para obtener el token CSRF
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Verifica si esta cookie contiene el nombre del token CSRF
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+    </script>
+</head>
+  <body>
+    <header>
+      <h1>Reminder GPT</h1>
+    </header>
+    <section>
+        <aside>
+            Lateral
+        </aside>
+        <main>
+            <div id="chat-box">
+                uno
+            </div>
+            <div>
+                <form id="chat-form">
+                    <textarea name="" id="message-input" name="message" required></textarea>
+                    <button type="submit" value = "Enviar">
+                </form>
+                <script>
+                  // Se ejecuta cuando el formulario se envía
+                  $('#chat-form').on('submit', function(event) {
+                      event.preventDefault(); // Evita el envío normal del formulario y recarga de la página
+                      
+                      const message = $('#message-input').val(); // Obtiene el valor del campo de entrada de mensaje
+                      
+                      const chatBox = $('#chat-box'); 
+
+                      chatBox.append('<p>' + message +  '</p>');
+                      chatBox.scrollTop(chatBox[0].scrollHeight);
+
+                      $.ajax({
+                          url: '{% url "send_message" %}', // URL a la que se envía la solicitud AJAX
+                          method: 'POST', // Método HTTP para la solicitud
+                          data: {
+                              'message': message, // Datos a enviar en la solicitud (el mensaje del usuario)
+                              'csrfmiddlewaretoken': '{{ csrf_token }}' // Token CSRF para seguridad
+                          },
+                          success: function(response) {
+                              // Selecciona el contenedor de mensajes
+                              // Añade el nuevo mensaje al final del contenedor
+                              chatBox.append(
+                                '<p>' + response.message + '</p>'); 
+                              // Desplaza el contenedor de mensajes al final para que el nuevo mensaje sea visible
+                              chatBox.scrollTop(chatBox[0].scrollHeight);
+                              // Limpia el campo de entrada de mensaje
+                              $('#message-input').val('');
+                          },
+                          error: function(xhr, status, error) {
+                              console.error('Error:', error); // Muestra cualquier error en la consola del navegador
+                          }
+                      });
+                  });
+              </script>
+            </div>
+        </main>
+    </section>
+
+  </body>
+
+</html>

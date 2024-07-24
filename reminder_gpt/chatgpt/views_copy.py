@@ -13,8 +13,37 @@ from django.contrib.auth.models import User
 
 
 
+def openai_response(query):
+    
+    client = OpenAI(
+        
+        api_key=config("OPENAI_API_KEY"),       
+    )
 
-def test_openai(request , query= "Creación del registro de usuarios en el  proyecto web de la universidad"):
+
+    messages = [{'role' : 'system',
+                  'content': "Me llamo Luis y te estoy ayudando, debes de ser muy amable conmigo mientras te uso."
+                }]
+
+
+    messages.append({"role" : "user",
+                "content": query,
+                })
+
+    chat_completion = client.chat.completions.create(
+            messages = messages , model="gpt-4o-mini", )
+  
+    messages.append({"role" : "assistant",
+                "content": chat_completion ,}
+    )
+    
+    answer = chat_completion.choices[0].message.content
+    print(chat_completion.choices[0])
+    
+    return answer
+    
+
+def test_openai(query= "Creación del registro de usuarios en el  proyecto web de la universidad"):
 
     client = OpenAI(
         
@@ -45,22 +74,22 @@ def test_openai(request , query= "Creación del registro de usuarios en el  proy
     else:
         ok = "No cuela"
     
-    # Aquí es donde debemos establecer acciones.
+    
     print(len(messages))
 
     return HttpResponse(f"{chat_completion.choices[0].message.content}---{ok}")  # Siempre debe devolverse algo en Django.
 
     
-def gpt_entry():
+def gpt_entry(): # Lo usaré para crear una nueva intancia de Registry
 
-    user = User.objects.get(username='your_username')
+    user = User.objects.get(username='')
 
-    # Crea una nueva instancia del modelo y asigna los valores de los campos
+    
     registry_entry = Registry(
-        project_name="Nombre del Proyecto",
-        log="Registro del proyecto",
+        project_name="",
+        log="",
         user=user
     )
 
-    # Guarda la nueva instancia en la base de datos
+    
     registry_entry.save()

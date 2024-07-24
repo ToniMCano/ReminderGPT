@@ -1,0 +1,175 @@
+*{
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+a{
+  font-weight: bolder;
+  color: white;
+}
+
+
+aside{
+  height:100%;
+  flex:2;
+  background: rgba(0, 0, 0, 0.507);
+}
+
+
+body {
+background: #44A08D;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #093637, #44A08D);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #093637, #44A08D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+
+button{
+  width: 100%;
+  justify-content: center;
+  border-radius: 0.5em;
+  height: 3em;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.877);
+  color: white;
+  font-weight: 600;
+  margin: 1em;
+}
+
+
+form {
+  width: 100%;
+  /*border:2px solid purple;*/
+  margin: 1em 1em 1em 1em  ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2em;
+  background: rgba(0, 0, 0, 0.507);
+  padding: 0 0 0  2em;
+}
+
+
+form > input{
+  border-radius: 2em;
+  height: 90%;
+  border:0;
+  margin: 0.2em 0.2em;
+  background-color: #093637;
+  font-weight: 500;
+  color:white;
+  padding: 0.5em;
+}
+
+
+textarea{
+display: flex;
+width: 100%;
+border-radius: 2em;
+padding: 1em;
+height: 4em;
+max-height: 10em;
+background: none;
+border: 0;
+resize: none;
+color: white;
+}
+
+textarea:focus{
+  outline: none; /* Eliminar el borde de enfoque predeterminado */
+  border: 0;
+}
+
+
+
+header{
+  display: flex;
+  color: white;
+  padding: 0;
+  justify-content: center;
+  height: 10vh;
+  background:#09363762;
+  align-items: center;
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+
+main{
+  display: flex;
+  height: 100%; 
+  flex:7;
+  flex-direction: column;
+}
+
+
+main > div{
+  width: 100%;
+  display: flex;  
+}
+
+
+main > div:first-child{
+  height: 85%;
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 2em 3em;
+  color: white;
+}
+
+main > div:last-child{
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+section {
+  height: 90dvh;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.button{
+  display: flex;
+  justify-content: center;
+}
+
+
+.errores{
+  position: absolute;
+  top: 1em;
+  color:red;
+  font-weight: 900;
+}
+
+
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+
+.user_name  {
+  display: flex;
+}
+
+ 
+#chat-box{
+  border: 1px solid #ccc;
+  overflow-y: scroll;
+}
+
+
