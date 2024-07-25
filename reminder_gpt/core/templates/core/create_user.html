@@ -2,9 +2,6 @@
 
 
 {% block content %}
-{% if 'ok' in request.GET %}
-<p><b>Formulario enviado correctamente.</b></p>
-{% endif %}
 
 <div class = "container">
     <form method="post" , action = "{% url 'sign_up' %}">
@@ -45,8 +42,8 @@
              <div class = "button">
                 <button type="submit" class="btn btn-primary">Entrar</button>
              </div> 
-             {{ field.errors }}
-             {{ field.label_tag }} {{ field }}
+             {{ field.errors }}           <!--Creo que no está funcionando-->
+             {{ field.label_tag }} {{ field }}  <!--Creo que no está funcionando-->
       </div>
     </form>
   </div>
