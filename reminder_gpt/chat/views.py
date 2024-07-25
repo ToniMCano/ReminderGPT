@@ -2,7 +2,7 @@
 
 from django.shortcuts import render
 from django.http import JsonResponse
-from chatgpt.views_copy import openai_response
+from chatgpt.views import openai_response
 #from .models import Message
 
 
