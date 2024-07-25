@@ -28,15 +28,16 @@ background: linear-gradient(to right, #093637, #44A08D); /* W3C, IE 10+/ Edge, F
 
 
 button{
-  width: 100%;
+  width: 4em;
   justify-content: center;
-  border-radius: 0.5em;
-  height: 3em;
+  border-radius: 2em;
+  height: 4em;
   align-items: center;
   background: rgba(0, 0, 0, 0.877);
   color: white;
   font-weight: 600;
-  margin: 1em;
+  margin: 0.5em;
+  padding: 0.4em;
 }
 
 
@@ -168,8 +169,26 @@ section {
 
  
 #chat-box{
-  border: 1px solid #ccc;
-  overflow-y: scroll;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
+#chat-box > div{
+  display: flex;
+  width: 100%;
+  margin: 0.5em 2em;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+
+
+.user{
+  background: rgba(0, 0, 0, 0.699);
+} 
+
+.bot{
+  background: rgba(0, 0, 0, 0.342);
+} 
 

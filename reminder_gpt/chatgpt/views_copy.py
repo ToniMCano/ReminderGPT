@@ -38,9 +38,11 @@ def openai_response(query):
     )
     
     answer = chat_completion.choices[0].message.content
-    print(chat_completion.choices[0])
+    
+    print(str(answer))
     
     return answer
+    
     
 
 def test_openai(query= "Creación del registro de usuarios en el  proyecto web de la universidad"):

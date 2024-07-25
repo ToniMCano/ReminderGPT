@@ -44,12 +44,12 @@
         </aside>
         <main>
             <div id="chat-box">
-                uno
+                
             </div>
             <div>
                 <form id="chat-form">
                     <textarea name="" id="message-input" name="message" required></textarea>
-                    <button type="submit" value = "Enviar">
+                    <button type="submit" value = "Enviar">Enviar</button>
                 </form>
                 <script>
                   // Se ejecuta cuando el formulario se envía
@@ -60,7 +60,7 @@
                       
                       const chatBox = $('#chat-box'); 
 
-                      chatBox.append('<p>' + message +  '</p>');
+                      chatBox.append('<div class = "user">' + message +  '</div>');
                       chatBox.scrollTop(chatBox[0].scrollHeight);
 
                       $.ajax({
@@ -73,8 +73,7 @@
                           success: function(response) {
                               // Selecciona el contenedor de mensajes
                               // Añade el nuevo mensaje al final del contenedor
-                              chatBox.append(
-                                '<p>' + response.message + '</p>'); 
+                              chatBox.append('<div class = "bot">' + response.message + '</div>'); 
                               // Desplaza el contenedor de mensajes al final para que el nuevo mensaje sea visible
                               chatBox.scrollTop(chatBox[0].scrollHeight);
                               // Limpia el campo de entrada de mensaje
