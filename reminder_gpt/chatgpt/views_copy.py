@@ -13,17 +13,20 @@ from django.contrib.auth.models import User
 
 
 
-def openai_response(query):
+def openai_response(request , query):
     
     client = OpenAI(
         
         api_key=config("OPENAI_API_KEY"),       
     )
 
+    messages = request.session.get('messages', [])
+    
+    if not messages:
+        messages = [{'role' : 'system',
+                'content': "Me llamo Luis y te estoy ayudando, debes de ser muy amable conmigo mientras te uso."
+            }]
 
-    messages = [{'role' : 'system',
-                  'content': "Me llamo Luis y te estoy ayudando, debes de ser muy amable conmigo mientras te uso."
-                }]
 
 
     messages.append({"role" : "user",
@@ -32,13 +35,14 @@ def openai_response(query):
 
     chat_completion = client.chat.completions.create(
             messages = messages , model="gpt-4o-mini", )
-  
-    messages.append({"role" : "assistant",
-                "content": chat_completion ,}
-    )
     
     answer = chat_completion.choices[0].message.content
-    print(chat_completion.choices[0])
+    
+    messages.append({"role" : "assistant",
+                "content": answer ,}
+    )
+    
+    request.session['messages'] = messages
     
     return answer
     
