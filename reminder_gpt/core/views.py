@@ -19,12 +19,12 @@ def home(request): # Es una prueba (SignUpForm registra usuarios),  hay que hace
             username = form.cleaned_data['user'] # cleaned_data es un diccionario dónde se almacenan los valores capturados en el formulario.
             password = form.cleaned_data['password']
             
-            user = authenticate(request, username=username, password=password)
+            user = authenticate(request, username=username, password=password) # Comprueba que el usuario existe y la contraseña coincide
             
             if user is not None:
                 login(request, user)
                 
-                return redirect(reverse('pages:pages_home'))  
+                return redirect(reverse('chat'))  
             
             else:
                 form.add_error(None, 'Usuario o contrasesña incorrectos')
@@ -51,7 +51,7 @@ def sign_up(request):
             return redirect('home')  
         
         else:
-            not_valid = True 
+            not_valid = True # Afinar para mandar información sobre que es lo que no es correcto.
  
 
     return render(request, "core/create_user.html", {'form': form , "not_valid": not_valid})
@@ -64,26 +64,8 @@ def create_user(request):
     return render(request , "core/create_user.html" , {'form':form})
 
 
-def sing_in(request):
-    
-    if User.objects.filter(username='Toni').exists():
-        print("Toni Existe")
-    
-    if request.user.is_authenticated:
-        user = request.user
+
         
-        return render(request, "core/test.html", {'user': user, 'message': 'Eres un usuario válido.'})
-    
-    else:
-        if request.method == 'POST':
-            form = SignUpForm(request.POST)
-            if form.is_valid():
-                
-                user = form.save() # Procesar formulario y guardar usuario
-                
-               #  login(request, user) iniciar sesión automáticamente después del registro
-               
-                return redirect('index')
-            
-        else:
-            return render(request, "core/create_user.html")
+        
+        
+        

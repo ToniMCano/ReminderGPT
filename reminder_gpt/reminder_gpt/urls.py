@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 from django.contrib.auth.views import LogoutView
-from chatgpt.views_copy import test_openai
+from chatgpt.views import test_openai
 from chat.views import chat
 
 urlpatterns = [
