@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from openai import OpenAI
-from decouple import Config , config , Csv
+from decouple import config
 from django.http import JsonResponse, HttpResponse
 import ast
 from pages.models import Registry
 from django.contrib.auth.models import User
-
+import markdown
 
 
 
@@ -42,6 +42,8 @@ def openai_response(request , query):
     
     request.session['messages'] = messages
     
+    answer = markdown.markdown(answer)
+    print(answer)
     return answer
     
 

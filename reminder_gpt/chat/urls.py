@@ -1,9 +1,9 @@
 from django.urls import path , include
 from . import views
-from chatgpt import views_copy
+from chatgpt.views import test_openai
 
 urlpatterns = [
   path("" , views.chat , name = 'chat'),
   path("sended/" , views.send_message , name = 'send_message'),
-  path("test2/" , views_copy.test_openai , name = 'test'),
+  path("test2/" , test_openai , name = 'test'),
 ]
