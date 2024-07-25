@@ -40,13 +40,15 @@
     </header>
     <section>
         <aside>
-            Lateral
+          <div id="chat-link">
+                
+          </div>
         </aside>
         <main>
             <div id="chat-box">
                 
             </div>
-            <div>
+            <div> 
                 <form id="chat-form">
                     <textarea name="" id="message-input" name="message" required></textarea>
                     <button type="submit" value = "Enviar">Enviar</button>
@@ -59,9 +61,13 @@
                       const message = $('#message-input').val(); // Obtiene el valor del campo de entrada de mensaje
                       
                       const chatBox = $('#chat-box'); 
+                      const chatLink = $('#chat-link'); 
 
                       chatBox.append('<div class = "user">' + message +  '</div>');
+                      
                       chatBox.scrollTop(chatBox[0].scrollHeight);
+
+                      
 
                       $.ajax({
                           url: '{% url "send_message" %}', // URL a la que se envía la solicitud AJAX
@@ -71,9 +77,17 @@
                               'csrfmiddlewaretoken': '{{ csrf_token }}' // Token CSRF para seguridad
                           },
                           success: function(response) {
-                              // Selecciona el contenedor de mensajes
-                              // Añade el nuevo mensaje al final del contenedor
-                              chatBox.append('<div class = "bot">' + response.message + '</div>'); 
+                            const maxLength = 30;
+                            let truncatedMessage;
+      
+                            if (message.length > maxLength) {
+                                truncatedMessage = message.substring(0, maxLength) + '...'; // Trunca y añade '...' al final
+                            } else {
+                                truncatedMessage = message; 
+                              chatBox.append('<div class = "bot">' + response.message[0] + '</div>'); 
+                            }
+
+                              chatLink.append('<div class = "aside_link">' + response.message[1] + truncatedMessage + '</a></div>');
                               // Desplaza el contenedor de mensajes al final para que el nuevo mensaje sea visible
                               chatBox.scrollTop(chatBox[0].scrollHeight);
                               // Limpia el campo de entrada de mensaje

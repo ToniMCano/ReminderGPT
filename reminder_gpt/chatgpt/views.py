@@ -21,6 +21,8 @@ def openai_response(request , query):
     )
 
     messages = request.session.get('messages', [])
+    anchor = request.session.get('anchor_number', 0)
+    anchor += 1
     
     if not messages:
         messages = [{'role' : 'system',
@@ -41,10 +43,14 @@ def openai_response(request , query):
     )
     
     request.session['messages'] = messages
+    request.session['anchor_number'] = anchor
     
     answer = markdown.markdown(answer)
-    print(answer)
-    return answer
+    answer =  f'<a id=" {anchor}"></a>' + answer
+    
+    answer_link = f'<a href="# {anchor}">'
+    
+    return [answer , answer_link]
     
 
 def test_openai(query= "Creación del registro de usuarios en el  proyecto web de la universidad"): # No se usa, la eliminaré

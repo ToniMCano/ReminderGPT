@@ -183,10 +183,32 @@ section {
 }
 
 
+#chat-link{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1em;
+}
+
+
+#chat-link > div{
+  display: flex;
+  width: 100%;
+  margin: 0.5em 1em;
+  border-radius: 1em;
+  padding: 1em;
+  background: rgba(0, 0, 0, 0.616);
+  white-space: nowrap; /* Evita que el texto se envuelva en varias líneas */
+  overflow: hidden; /* Oculta el texto que excede el contenedor */
+  text-overflow: ellipsis;
+}
+
 
 .user{
   background: rgba(0, 0, 0, 0.699);
 } 
+
 
 .bot{
   background: rgba(0, 0, 0, 0.342);
@@ -194,21 +216,26 @@ section {
   flex-direction: column;
 } 
 
+
 .bot > *{
   display: flex;
   width: 80% ;
   margin: 1em 2em;
 } 
 
+
 .bot > ul , .bot > ol {
   min-width: 100% ;
   display: flex;
   flex-direction: column;
-
 } 
 
 .bot strong{
   font-weight: 600;
+}
+
+.aside_link a{
+  text-decoration: none;
 }
 
 
@@ -233,3 +260,6 @@ section {
   background-color: #0500004d; /* Color de fondo de la barra de desplazamiento */
   border-radius: 10px; /* Radio del borde para el fondo */
 }
+
+
+
