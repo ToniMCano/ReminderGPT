@@ -6,6 +6,7 @@ import ast
 from pages.models import Registry
 from django.contrib.auth.models import User
 import markdown
+import base64
 
 
 
@@ -14,6 +15,8 @@ import markdown
 
 
 def openai_response(request , query):
+    
+    query = base64.b64decode(query).decode('utf-8')
     
     client = OpenAI(
         
