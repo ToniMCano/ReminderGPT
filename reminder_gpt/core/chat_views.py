@@ -1,16 +1,42 @@
+from django.shortcuts import render , redirect
+from django.contrib.auth.models import User
+from django.contrib.auth import login , authenticate
+from .forms import SignUpForm , LoginForm
+from django.urls import path , reverse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from openai import OpenAI
 from decouple import config
-from django.http import JsonResponse, HttpResponse
 import ast
-from pages.models import Registry
-from django.contrib.auth.models import User
 import markdown
 import base64
 
 
 
-# Create your views here.
+
+
+#------------Chat------------
+
+
+
+def chat(request):
+    
+    return render(request , "core/chat.html")
+
+
+def send_message(request):
+    if request.method == 'POST':
+        message_text = request.POST.get('message')
+        message = openai_response(request , message_text)
+        print(message)
+        return JsonResponse({'message': message})
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+
+
+#------------Chat------------
+
 
 
 

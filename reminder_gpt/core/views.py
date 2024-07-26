@@ -24,17 +24,13 @@ def home(request): # Es una prueba (SignUpForm registra usuarios),  hay que hace
             if user is not None:
                 login(request, user)
                 
-                return redirect(reverse('chat'))  
+                return redirect('chat')  
             
             else:
                 form.add_error(None, 'Usuario o contrasesña incorrectos')
     
     return render(request, 'core/index.html', {'form': form})
     
-    
-def test(request):
-    
-    return render(request , "core/test.html")
     
     
 def sign_up(request):
