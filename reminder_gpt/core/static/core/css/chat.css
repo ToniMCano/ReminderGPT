@@ -12,11 +12,6 @@ a{
 }
 
 
-aside{
-  height:100%;
-  flex:2;
-  background: rgba(0, 0, 0, 0.507);
-}
 
 
 body {
@@ -105,10 +100,55 @@ html, body {
 }
 
 
+
+section {
+  height: 90dvh;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+aside{
+  height:100%;
+  display: flex;
+  flex:1;
+  background: rgba(0, 0, 0, 0.507);
+  max-width: 25em;
+}
+
+
+#chat-link{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1em;
+  width: 100%;
+}
+
+
+#chat-link > div{
+  display: flex;
+  width: 100%;
+  margin: 0.5em 1em;
+  border-radius: 1em;
+  padding: 1em;
+  background: rgba(0, 0, 0, 0.616);
+  white-space: nowrap; /* Evita que el texto se envuelva en varias líneas */
+  overflow: hidden; /* Oculta el texto que excede el contenedor */
+  text-overflow: ellipsis;
+}
+
+
+.aside_link a{
+  text-decoration: none;
+}
+
+
 main{
   display: flex;
   height: 100%; 
-  flex:7;
+  flex:4;
   flex-direction: column;
 }
 
@@ -117,6 +157,23 @@ main > div{
   width: 100%;
   display: flex;  
 }
+
+
+#chat-box{
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+
+#chat-box > div{
+  display: flex;
+  margin: 0.5em 2em;
+  border-radius: 1em;
+  padding: 1em;
+}
+
 
 
 main > div:first-child{
@@ -134,12 +191,6 @@ main > div:last-child{
   align-items: center;
 }
 
-
-section {
-  height: 90dvh;
-  display: flex;
-  flex-wrap: wrap;
-}
 
 
 .button{
@@ -167,43 +218,6 @@ section {
   display: flex;
 }
 
- 
-#chat-box{
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-#chat-box > div{
-  display: flex;
-  width: 100%;
-  margin: 0.5em 2em;
-  border-radius: 1em;
-  padding: 1em;
-}
-
-
-#chat-link{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 1em;
-}
-
-
-#chat-link > div{
-  display: flex;
-  width: 100%;
-  margin: 0.5em 1em;
-  border-radius: 1em;
-  padding: 1em;
-  background: rgba(0, 0, 0, 0.616);
-  white-space: nowrap; /* Evita que el texto se envuelva en varias líneas */
-  overflow: hidden; /* Oculta el texto que excede el contenedor */
-  text-overflow: ellipsis;
-}
-
 
 .user{
   background: rgba(0, 0, 0, 0.699);
@@ -214,13 +228,23 @@ section {
   background: rgba(0, 0, 0, 0.342);
   display: flex;
   flex-direction: column;
+  max-width: 50em;
+  overflow-x: auto;
 } 
 
+  /* ==================================================================BOT===============================================================================*/
 
-.bot > *{
-  display: flex;
-  width: 80% ;
+.bot > a p{
+  display: inline-flex;
   margin: 1em 2em;
+  flex: 1;
+  width: max-content;
+} 
+
+.bot > a p > code {
+  display: inline-flex;
+  flex: 1;
+  width: max-content;
 } 
 
 
@@ -230,13 +254,21 @@ section {
   flex-direction: column;
 } 
 
+
 .bot strong{
   font-weight: 600;
 }
 
-.aside_link a{
-  text-decoration: none;
+.bot code{
+  font-family: 'Courier New', Courier, monospace;
 }
+
+
+  /* =================================================================================================================================================*/
+
+
+
+
 
 
 /* Contenedor del scroll (solo para WebKit) */
@@ -260,6 +292,5 @@ section {
   background-color: #0500004d; /* Color de fondo de la barra de desplazamiento */
   border-radius: 10px; /* Radio del borde para el fondo */
 }
-
 
 
