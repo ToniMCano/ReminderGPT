@@ -101,10 +101,16 @@ html, body {
 
 
 
-section {
+.container {
   height: 90dvh;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr 5fr 1fr;
+  gap: 0.5em;
+}
+
+.container > div{
+    border: 3px solid black;
 }
 
 
@@ -114,6 +120,7 @@ aside{
   flex:1;
   background: rgba(0, 0, 0, 0.507);
   max-width: 25em;
+  grid-column: ;
 }
 
 
