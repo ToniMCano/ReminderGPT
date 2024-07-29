@@ -132,11 +132,3 @@ def gpt_entry(): # Lo usaré para crear una nueva instancia de Registry
     user = User.objects.get(username='')
 
     
-    registry_entry = Registry(
-        project_name="",
-        log="",
-        user=user
-    )
-
-    
-    registry_entry.save()
