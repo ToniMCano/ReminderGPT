@@ -83,7 +83,7 @@
                         $('#message-input').val('');
                 
                         // Desplaza el contenedor principal al final para que el nuevo mensaje del usuario sea visible
-                        main.animate({ scrollTop: main.prop("scrollHeight") }, 300);
+                        $('html, body').animate({ scrollTop: $(document).height() }, 300);
                 
                         $.ajax({
                             url: '{% url "send_message" %}', // URL a la que se envía la solicitud AJAX
@@ -120,7 +120,7 @@
                                 chatLink.prepend('<div class="aside_link"><a href="#' + anchorId + '">' + truncatedMessage + '</a></div>');
                                 
                                 // Desplaza el contenedor principal al final para que el nuevo mensaje sea visible
-                                main.animate({ scrollTop: main.prop("scrollHeight") }, 300);
+                                $('html, body').animate({ scrollTop: $(document).height() }, 300);
                             },
                             error: function(xhr, status, error) {
                                 console.error('Error:', error); // Muestra cualquier error en la consola del navegador
