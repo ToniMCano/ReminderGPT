@@ -110,7 +110,7 @@
                                     }
                 
                                     // Añade el enlace truncado en la barra lateral
-                                    chatLink.append('<div class="aside_link"><a href="#' + anchorId + '">' + truncatedMessage + '</a></div>');
+                                    chatLink.prepend('<div class="aside_link"><a href="#' + anchorId + '">' + truncatedMessage + '</a></div>');
                 
                                     // Desplaza el contenedor de mensajes al final para que el nuevo mensaje sea visible
                                     chatBox.scrollTop(chatBox[0].scrollHeight);
@@ -126,11 +126,6 @@
             </div>
         </main>
     </section>
-    
-            </div>
-        </main>
-    </section>
-
   </body>
 
 </html>
