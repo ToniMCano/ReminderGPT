@@ -142,6 +142,7 @@ aside{
 .aside_link a{
   text-decoration: none;
   display: flex ;
+  height: min-content;
 }
 
 

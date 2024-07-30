@@ -35,98 +35,87 @@
         const csrftoken = getCookie('csrftoken');
     </script>
 </head>
-  <body>
-    <header>
-      <h1>Reminder GPT</h1>
-    </header>
-    <div class = "container">
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>4</div>
-    </div >
+  <body>    
     <section>
         <aside>
             <div id="chat-link"></div>
         </aside>
         <main>
             <div id="chat-box"></div>
-            <div>
-                <form id="chat-form">
-                    <textarea id="message-input" name="message" required></textarea>
-                    <button type="submit" value="Enviar">Enviar</button>
-                </form>
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-                <script>
-                    $(document).ready(function() {
-                        if (typeof marked === 'undefined') {
-                            console.error('La librería marked no está disponible');
-                            return;
-                        }
-                        
-                        console.log('marked está disponible:', marked);
-                        
-                        $('#chat-form').on('submit', function(event) {
-                            event.preventDefault(); // Evita el envío normal del formulario y recarga de la página
-                
-                            let message = $('#message-input').val(); // Obtiene el valor del campo de entrada de mensaje
-                
-                            const chatBox = $('#chat-box'); 
-                            const chatLink = $('#chat-link'); 
-                
-                            chatBox.append('<div class="user">' + message + '</div>');
-                            $('#message-input').val('');
-                
-                            chatBox.scrollTop(chatBox[0].scrollHeight);
-                
-                            $.ajax({
-                                url: '{% url "send_message" %}', // URL a la que se envía la solicitud AJAX
-                                method: 'POST', // Método HTTP para la solicitud
-                                data: {
-                                    'message': message, // Datos a enviar en la solicitud (el mensaje del usuario)
-                                    'csrfmiddlewaretoken': '{{ csrf_token }}' // Token CSRF para seguridad
-                                },
-                                success: function(response) {
-                                    const maxLength = 30;
-                                    const to_truncate = message;
-                
-                                    let botMessage = response.message[0];
-                                    let anchorId = response.message[1];
-                
-                                    // Trunca el mensaje original y añade '...' al final si es necesario
-                                    let truncatedMessage = to_truncate.length > maxLength
-                                        ? to_truncate.substring(0, maxLength) + '...'
-                                        : to_truncate;
-                
-                                    // Convierte la respuesta del bot de Markdown a HTML
-                                    try {
-                                        const htmlOutput = marked.parse(botMessage);
-                                        console.log('HTML convertido:', htmlOutput);
-                                        chatBox.append('<div class="bot"><a id="'+ anchorId + '">' + htmlOutput + '</a></div>');
-                                    } catch (error) {
-                                        console.error('Error al convertir Markdown:', error);
-                                        chatBox.append('<div class="bot">' + botMessage + '</div>');
-                                    }
-                
-                                    // Añade el enlace truncado en la barra lateral
-                                    chatLink.prepend('<div class="aside_link"><a href="#' + anchorId + '">' + truncatedMessage + '</a></div>');
-                
-                                    // Desplaza el contenedor de mensajes al final para que el nuevo mensaje sea visible
-                                    chatBox.scrollTop(chatBox[0].scrollHeight);
-                                },
-                                error: function(xhr, status, error) {
-                                    console.error('Error:', error); // Muestra cualquier error en la consola del navegador
+        </main>
+        <div class = "div_form">
+            <form id="chat-form">
+                <textarea id="message-input" name="message" required></textarea>
+                <button type="submit" value="Enviar">Enviar</button>
+            </form>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    if (typeof marked === 'undefined') {
+                        console.error('La librería marked no está disponible');
+                        return;
+                    }
+                    
+                    console.log('marked está disponible:', marked);
+                    
+                    $('#chat-form').on('submit', function(event) {
+                        event.preventDefault(); // Evita el envío normal del formulario y recarga de la página
+            
+                        let message = $('#message-input').val(); // Obtiene el valor del campo de entrada de mensaje
+            
+                        const chatBox = $('#chat-box'); 
+                        const chatLink = $('#chat-link'); 
+            
+                        chatBox.append('<div class="user">' + message + '</div>');
+                        $('#message-input').val('');
+            
+                        chatBox.scrollTop(chatBox[0].scrollHeight);
+            
+                        $.ajax({
+                            url: '{% url "send_message" %}', // URL a la que se envía la solicitud AJAX
+                            method: 'POST', // Método HTTP para la solicitud
+                            data: {
+                                'message': message, // Datos a enviar en la solicitud (el mensaje del usuario)
+                                'csrfmiddlewaretoken': '{{ csrf_token }}' // Token CSRF para seguridad
+                            },
+                            success: function(response) {
+                                const maxLength = 20;
+                                const to_truncate = message;
+            
+                                let botMessage = response.message[0];
+                                let anchorId = response.message[1];
+            
+                                // Trunca el mensaje original y añade '...' al final si es necesario
+                                let truncatedMessage = to_truncate.length > maxLength
+                                    ? to_truncate.substring(0, maxLength) + '...'
+                                    : to_truncate;
+            
+                                // Convierte la respuesta del bot de Markdown a HTML
+                                try {
+                                    const htmlOutput = marked.parse(botMessage);
+                                    console.log('HTML convertido:', htmlOutput);
+                                    chatBox.append('<div class="bot"><a id="'+ anchorId + '">' + htmlOutput + '</a></div>');
+                                } catch (error) {
+                                    console.error('Error al convertir Markdown:', error);
+                                    chatBox.append('<div class="bot">' + botMessage + '</div>');
                                 }
-                            });
+            
+                                // Añade el enlace truncado en la barra lateral
+                                chatLink.prepend('<div class="aside_link"><a href="#' + anchorId + '">' + truncatedMessage + '</a></div>');
+            
+                                // Desplaza el contenedor de mensajes al final para que el nuevo mensaje sea visible
+                                chatBox.scrollTop(chatBox[0].scrollHeight);
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error:', error); // Muestra cualquier error en la consola del navegador
+                            }
                         });
                     });
-                </script>
-                
-            </div>
-        </main>
+                });
+            </script>
+        </div>
     </section>
   </body>
-
 </html>
 

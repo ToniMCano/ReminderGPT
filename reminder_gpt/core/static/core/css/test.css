@@ -37,8 +37,6 @@ button{
 
 
 form {
-  width: 100%;
-  /*border:2px solid purple;*/
   margin: 1em 1em 1em 1em  ;
   display: flex;
   justify-content: center;
@@ -81,17 +79,6 @@ textarea:focus{
 
 
 
-header{
-  display: flex;
-  color: white;
-  padding: 0;
-  justify-content: center;
-  height: 10vh;
-  background:#09363762;
-  align-items: center;
-}
-
-
 html, body {
   margin: 0;
   padding: 0;
@@ -100,29 +87,36 @@ html, body {
 }
 
 
-
-.container {
-  height: 90dvh;
+section {
   display: grid;
-  grid-template-columns: 1fr 5fr;
-  grid-template-rows: 1fr 5fr 1fr;
-  gap: 0.5em;
-}
+  min-height: 90vh;
+  grid-template-columns: 2fr 2fr; /* Define las columnas */
+  grid-template-rows: 1fr 1fr 1fr 6em; /* Define las filas */
+  grid-template-areas: 
+    "content content"
+    "content content"
+    "content content"
+    "content content";
 
-.container > div{
-    border: 3px solid black;
 }
 
 
 aside{
-  height:100%;
-  display: flex;
-  flex:1;
   background: rgba(0, 0, 0, 0.507);
-  max-width: 25em;
-  grid-column: ;
+  position: fixed;
+  width: 20%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
+
+.div_form{
+position: fixed;
+bottom: 0;
+right: 0;
+width: 80%;
+background: green;
+}
 
 #chat-link{
   display: flex;
@@ -153,10 +147,7 @@ aside{
 
 
 main{
-  display: flex;
-  height: 100%; 
-  flex:4;
-  flex-direction: column;
+  grid-area: content;
 }
 
 
@@ -164,23 +155,6 @@ main > div{
   width: 100%;
   display: flex;  
 }
-
-
-#chat-box{
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-
-#chat-box > div{
-  display: flex;
-  margin: 0.5em 2em;
-  border-radius: 1em;
-  padding: 1em;
-}
-
 
 
 main > div:first-child{
@@ -196,6 +170,71 @@ main > div:last-child{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#chat-box{
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 20%;
+  padding-bottom: 10em;
+  width: 80%;
+  background: red;
+  height: 100%;
+}
+
+
+#chat-box > div{
+  display: flex;
+  margin: 0.5em 2em;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+
+.user_name  {
+  display: flex;
+}
+
+
+.user{
+  background: rgba(0, 0, 0, 0.699);
+  width: 100%;
+} 
+
+
+.bot{
+  background: rgba(0, 0, 0, 0.705);
+  width: 100%;
+} 
+
+.bot > a p{
+  display: inline-flex;
+  margin: 1em 2em;
+  width: max-content;
+  flex-wrap: wrap;
+} 
+
+.bot > a p{
+  display: inline-flex;
+  width: max-content;
+} 
+
+
+.bot > ul , .bot > ol {
+  min-width: 100% ;
+  display: flex;
+  flex-direction: column;
+} 
+
+
+.bot strong{
+  font-weight: 600;
+}
+
+.bot code{
+  font-family: 'Courier New', Courier, monospace;
 }
 
 
@@ -219,63 +258,6 @@ main > div:last-child{
   font-weight: 100;
   font-style: normal;
 }
-
-
-.user_name  {
-  display: flex;
-}
-
-
-.user{
-  background: rgba(0, 0, 0, 0.699);
-} 
-
-
-.bot{
-  background: rgba(0, 0, 0, 0.342);
-  display: flex;
-  flex-direction: column;
-  max-width: 50em;
-  overflow-x: auto;
-} 
-
-  /* ==================================================================BOT===============================================================================*/
-
-.bot > a p{
-  display: inline-flex;
-  margin: 1em 2em;
-  flex: 1;
-  width: max-content;
-} 
-
-.bot > a p > code {
-  display: inline-flex;
-  flex: 1;
-  width: max-content;
-} 
-
-
-.bot > ul , .bot > ol {
-  min-width: 100% ;
-  display: flex;
-  flex-direction: column;
-} 
-
-
-.bot strong{
-  font-weight: 600;
-}
-
-.bot code{
-  font-family: 'Courier New', Courier, monospace;
-}
-
-
-  /* =================================================================================================================================================*/
-
-
-
-
 
 
 /* Contenedor del scroll (solo para WebKit) */
