@@ -27,7 +27,7 @@ def chat(request):
     return render(request , "core/chat.html")
 
 
-def send_messageWAIT(request):
+def send_message(request):
     if request.method == 'POST':
         message_text = request.POST.get('message')
         message = openai_response(request , message_text)
@@ -36,7 +36,7 @@ def send_messageWAIT(request):
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
-def send_message(request):
+def send_messageWAIT(request):
   
         message = ['''La propiedad `height: auto;` en CSS es una configuración muy útil que permite que la altura de un elemento se ajuste automáticamente al contenido que contiene. Aquí tienes más información sobre su uso, beneficios y ejemplos prácticos.\n\n### Detalles sobre `height: auto;`\n\n- **Ajuste Automático**: Cuando se establece `height: auto;`, el navegador calcula la altura del elemento de modo que se ajuste al contenido, evitando así que se produzcan desbordes o espacios no deseados.\n\n- **Comportamiento Predeterminado**: La mayoría de los elementos de bloque (`<div>`, `<p>`, etc.) tienen `height: auto;` por defecto. Esto significa que no es necesario especificarlo, pero es útil mencionarlo cuando se discuten otros estilos.\n\n- **Flexibilidad en Diseño**: Esta propiedad es perfecta para diseños responsivos, ya que permite que un elemento se expanda o contraiga automáticamente según sea necesario.\n\n### Ejemplo Práctico\n\nAquí tienes un ejemplo simple que demuestra cómo funciona `height: auto;`:\n\n```html\n<!DOCTYPE html>\n<html lang="es">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Ejemplo de height: auto;</title>\n    <style>\n        .contenedor {\n            width: 300px;                   /* Ancho del contenedor */\n            padding: 20px;                  /* Espaciado interno */\n            border: 2px solid #007BFF;      /* Borde azul */\n            background-color: #f0f8ff;      /* Fondo claro */\n            height: auto;                   /* Ajuste automático a contenido */\n       
  }\n    </style>\n</head>\n<body>\n\n<div class="contenedor">\n    <h2>Contenedor con altura automática</h2>\n    <p>Este es un ejemplo de cómo el contenedor se ajusta a la altura de su contenido.</p>\n    <p>Añadir más contenido aquí hará que el contenedor crezca automáticamente.</p>\n</div>\n\n</body>\n</html>\n```\n\n### Beneficios de `height: auto;`\n\n1. **Previene Desbordamientos**: Ayuda a evitar que el contenido se salga de los límites del contenedor.\n   \n2. **Ideal para Contenido Dinámico**: En aplicaciones web donde el contenido puede cambiar (como formularios o chats), la altura automática permite una mejor gestión del espacio.\n\n3. **Estética Mejorada**: Mantiene 
@@ -132,11 +132,3 @@ def gpt_entry(): # Lo usaré para crear una nueva instancia de Registry
     user = User.objects.get(username='')
 
     
-    registry_entry = Registry(
-        project_name="",
-        log="",
-        user=user
-    )
-
-    
-    registry_entry.save()
