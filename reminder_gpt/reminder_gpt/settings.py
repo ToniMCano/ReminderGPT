@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from decouple import Config , config , Csv
+from django.shortcuts import render , redirect
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,6 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'reminder_gpt.urls'
+
+CSRF_COOKIE_SECURE = True
 
 TEMPLATES = [
     {
@@ -147,3 +151,4 @@ LOGOUT_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

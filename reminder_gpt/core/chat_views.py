@@ -8,8 +8,9 @@ from django.shortcuts import render
 from openai import OpenAI
 from decouple import config
 import ast
+import logging
 #import markdown
-import base64
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -17,7 +18,7 @@ import base64
 
 #------------Chat------------
 
-
+@login_required
 def chat(request):
     
     return render(request , "core/chat.html")
@@ -30,17 +31,19 @@ def send_message(request):
             message_text = request.POST.get('message')
             message = openai_response(request , message_text)
             print(message)
-            return JsonResponse({'message': message})
+            return JsonResponse({'message': message} , status = 200)
         
         return JsonResponse({'error': 'Invalid request'}, status=400)
 
     except:
-        return HttpResponse("Ha habido un problema al envíar el mensaje", status=500)
+        logging.exception("Ha habido un problema al envíar el mensaje")
+        return JsonResponse({'error': 'Ha habido un problema al envíar el mensaje'}, status=500)
+
 
 
 #------------ChatGPT------------
 
-
+@login_required
 def openai_response(request , query):
     
     try:
@@ -50,7 +53,7 @@ def openai_response(request , query):
             api_key=config("OPENAI_API_KEY"),       
         )
 
-        messages = request.session.get('messages', [])
+        messages = request.session.get('messages', []) # Carga los mensajes de la sesión de este usuario si los hay. La sesión expira al cerrar la página o hcaer logout
         anchor = request.session.get('anchor_number', 0)
         anchor += 1
         
@@ -69,10 +72,10 @@ def openai_response(request , query):
                     "content": query,
                     })
 
-        chat_completion = client.chat.completions.create(
+        chat_completion = client.chat.completions.create(       # Crea la respuesta en función a los messages, basándose en el modelo indicado (gpt-4o-mini)
                 messages = messages , model="gpt-4o-mini", )
         
-        answer = chat_completion.choices[0].message.content
+        answer = chat_completion.choices[0].message.content   #Devuelve el contenido
         
         messages.append({"role" : "assistant",
                     "content": answer ,}
@@ -80,7 +83,7 @@ def openai_response(request , query):
         
         request.session['messages'] = messages
         request.session['anchor_number'] = anchor
-
+        print(len(request.session['messages']))
         return [answer , str(anchor)]
     
     except:

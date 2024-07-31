@@ -129,7 +129,22 @@
                                 $('html, body').animate({ scrollTop: $('#' + anchorId).offset().top }, 300);
                             },
                             error: function(xhr, status, error) {
-                                console.error('Error:', error); // Muestra cualquier error en la consola del navegador
+                                // Maneja la respuesta de error
+                                let errorMessage = 'Ha ocurrido un error.';
+            
+                                // Verifica si la respuesta es JSON
+                                try {
+                                    const errorResponse = JSON.parse(xhr.responseText);
+                                    errorMessage = errorResponse.error || 'Ha ocurrido un error inesperado.';
+                                } catch (e) {
+                                    console.error('Error al procesar la respuesta de error:', e);
+                                }
+            
+                                // Muestra el mensaje de error en el chatBox
+                                chatBox.append('<div class="bot"><div class="error">' + escapeHtml(errorMessage) + '</div></div>');
+            
+                                // Desplaza el contenedor principal al final para que el nuevo mensaje de error sea visible
+                                $('html, body').animate({ scrollTop: $(document).height() }, 300);            
                             }
                         });
                     });
