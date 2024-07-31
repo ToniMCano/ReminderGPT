@@ -36,6 +36,12 @@
     </script>
 </head>
   <body>
+
+            <form class = "logout_button" action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button style = "width:8em; margin-left:5em;" type="submit">Salir</button>
+            </form>
+
         <aside>
             <div id="chat-link"></div>
         </aside>

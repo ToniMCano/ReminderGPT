@@ -27,9 +27,9 @@ def home(request): # Es una prueba (SignUpForm registra usuarios),  hay que hace
                 return redirect('chat')  
             
             else:
-                form.add_error(None, 'Usuario o contrasesña incorrectos')
+                form.add_error(None, 'Usuario o contraseña incorrectos')
     
-    return render(request, 'core/index.html', {'form': form})
+    return render(request, 'core/index.html', {'form': form , 'title':"Home"})
     
     
     
