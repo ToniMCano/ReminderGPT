@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{title}}</title>
+    <title>a{{title}}</title>
     {% load static %}
     <link href="{% static 'core/css/core_css.css' %}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,13 +17,7 @@
   </head>
   <body>
     <header>
-      <h1>Reminder GPT</h1>
-      <div>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button style = "width:8em; margin-left:5em;" type="submit">Salir</button>
-        </form>
-    </div>
+      <h1><a href="{% url 'home'%}">Demo GPT</a></h1>
     </header>
     {% block content %}
       
@@ -31,9 +25,9 @@
     <!-- Pié de página -->
     <footer>
       <div>
-          <a href="sample.html" class="link">FAQs</a> ·
-          <a href="sample.html" class="link">About</a> ·
-          <a href="sample.html" class="link">Contacto</a>
+          <a href="#" class="link">FAQs</a> ·
+          <a href="#" class="link">About</a> ·
+          <a href="#" class="link">Contacto</a>
       </div>
 	  </footer>
   </body>

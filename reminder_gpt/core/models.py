@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 
-def validate_phone(value):
+def validate_phone(value):  #TODO Comprobar que no se usa y eliminar.
     
     if len(value) != 9 or not value.isdigit():
         

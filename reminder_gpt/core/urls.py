@@ -1,6 +1,6 @@
 from django.urls import path , include
 from . import views
-from .chat_views import test_openai , send_message , chat , test
+from .chat_views import send_message , chat , test
 
 
 urlpatterns = [

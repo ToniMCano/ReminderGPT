@@ -10,11 +10,13 @@ class SignUpForm(UserCreationForm):
 
 
     class Meta:
+        
         model = User
-        fields = ('username', 'email', 'password1', 'password2', 'tlf')
+        fields = ('username', 'email', 'password1', 'password2', 'tlf') # sobreescribe los campos del modelo User antes serían   ('username', 'email', 'password1', 'password2')
 
 
-    def clean_tlf(self):
+    def clean_tlf(self): # clean_nombre_del_campo se ejecuta con.is_valid()
+        
         tlf = self.cleaned_data.get('tlf')
         
         if not tlf.isdigit():
@@ -27,6 +29,7 @@ class SignUpForm(UserCreationForm):
 
 
     def save(self, commit=True):
+        
         user = super().save(commit=False)
         user.save()
 
