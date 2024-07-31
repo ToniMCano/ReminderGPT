@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    
+    {% block meta %}{% endblock meta %}    
 
-    <title>a{{title}}</title>
+    <title>{{title}}</title>
     {% load static %}
     <link href="{% static 'core/css/core_css.css' %}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">

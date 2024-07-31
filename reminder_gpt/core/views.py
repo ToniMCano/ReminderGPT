@@ -3,12 +3,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login , authenticate
 from .forms import SignUpForm , LoginForm
 from django.urls import path , reverse
+from django.http import HttpResponse
 
 
 # Create your views here.
 
 
-def home(request): # Es una prueba (SignUpForm registra usuarios),  hay que hacer un formulario para esta función.
+def home(request): 
     
     form = LoginForm() 
     
@@ -28,11 +29,10 @@ def home(request): # Es una prueba (SignUpForm registra usuarios),  hay que hace
             
             else:
                 form.add_error(None, 'Usuario o contraseña incorrectos')
-    
+
     return render(request, 'core/index.html', {'form': form , 'title':"Home"})
     
-    
-    
+        
 def sign_up(request):
      
     form = SignUpForm()
@@ -61,7 +61,13 @@ def create_user(request):
 
 
 
-        
+def custom_403_view(request, exception):
+    
+    form = SignUpForm()
+    
+    form.add_error(None, 'Usuario o contraseña incorrectos')
+    
+    return render(request , "core/index.html" , {'form':form})      
         
         
         
