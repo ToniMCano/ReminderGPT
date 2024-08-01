@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module core.chat_views</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="core.html" class="white">core</a>.chat_views</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5C34615%5Cdocuments%5Cpython%5Cremindergpt%5Creminder_gpt%5Ccore%5Cchat_views.py">c:\users\34615\documents\python\remindergpt\reminder_gpt\core\chat_views.py</a></td></tr></table>
+    <p><span class="code">Módulo&nbsp;que&nbsp;gestiona&nbsp;las&nbsp;vistas&nbsp;de&nbsp;la&nbsp;aplicación,&nbsp;incluyendo&nbsp;la&nbsp;autenticación&nbsp;de&nbsp;usuarios&nbsp;y&nbsp;la&nbsp;integración&nbsp;con&nbsp;OpenAI.<br>
+&nbsp;<br>
+Este&nbsp;módulo&nbsp;incluye&nbsp;las&nbsp;siguientes&nbsp;funciones:<br>
+&nbsp;<br>
+-&nbsp;<a href="#-chat">chat</a>(request):&nbsp;Renderiza&nbsp;la&nbsp;página&nbsp;del&nbsp;chat.<br>
+-&nbsp;<a href="#-send_message">send_message</a>(request):&nbsp;Maneja&nbsp;el&nbsp;envío&nbsp;de&nbsp;mensajes&nbsp;desde&nbsp;el&nbsp;chat&nbsp;y&nbsp;retorna&nbsp;una&nbsp;respuesta&nbsp;de&nbsp;OpenAI.<br>
+-&nbsp;<a href="#-openai_response">openai_response</a>(request,&nbsp;query):&nbsp;Genera&nbsp;una&nbsp;respuesta&nbsp;de&nbsp;OpenAI&nbsp;basada&nbsp;en&nbsp;la&nbsp;consulta&nbsp;del&nbsp;usuario&nbsp;y&nbsp;mantiene&nbsp;el&nbsp;historial&nbsp;de&nbsp;la&nbsp;conversación.<br>
+-&nbsp;<a href="#-test_openai">test_openai</a>(query):&nbsp;(No&nbsp;utilizada)&nbsp;Genera&nbsp;una&nbsp;respuesta&nbsp;de&nbsp;OpenAI&nbsp;para&nbsp;pruebas&nbsp;específicas.<br>
+-&nbsp;<a href="#-test">test</a>(request):&nbsp;Renderiza&nbsp;una&nbsp;página&nbsp;de&nbsp;prueba.<br>
+-&nbsp;<a href="#-send_messageWAIT">send_messageWAIT</a>(request):&nbsp;Proporciona&nbsp;un&nbsp;mensaje&nbsp;de&nbsp;prueba&nbsp;en&nbsp;formato&nbsp;JSON.<br>
+&nbsp;<br>
+Importaciones:<br>
+-&nbsp;django.shortcuts:&nbsp;Utilizado&nbsp;para&nbsp;renderizar&nbsp;plantillas&nbsp;y&nbsp;redirigir&nbsp;vistas.<br>
+-&nbsp;django.contrib.auth.models:&nbsp;Modelos&nbsp;de&nbsp;autenticación&nbsp;proporcionados&nbsp;por&nbsp;Django.<br>
+-&nbsp;django.contrib.auth:&nbsp;Funciones&nbsp;de&nbsp;autenticación&nbsp;proporcionadas&nbsp;por&nbsp;Django.<br>
+-&nbsp;.forms:&nbsp;Formularios&nbsp;personalizados&nbsp;para&nbsp;el&nbsp;inicio&nbsp;de&nbsp;sesión&nbsp;y&nbsp;registro&nbsp;de&nbsp;usuarios.<br>
+-&nbsp;django.urls:&nbsp;Herramientas&nbsp;para&nbsp;la&nbsp;gestión&nbsp;de&nbsp;rutas&nbsp;URL.<br>
+-&nbsp;django.http:&nbsp;Utilizado&nbsp;para&nbsp;generar&nbsp;respuestas&nbsp;HTTP.<br>
+-&nbsp;openai:&nbsp;Biblioteca&nbsp;para&nbsp;interactuar&nbsp;con&nbsp;la&nbsp;API&nbsp;de&nbsp;OpenAI.<br>
+-&nbsp;decouple:&nbsp;Utilizado&nbsp;para&nbsp;manejar&nbsp;variables&nbsp;de&nbsp;entorno.<br>
+-&nbsp;ast:&nbsp;Utilizado&nbsp;para&nbsp;evaluar&nbsp;expresiones&nbsp;en&nbsp;cadena.<br>
+-&nbsp;logging:&nbsp;Utilizado&nbsp;para&nbsp;el&nbsp;registro&nbsp;de&nbsp;eventos&nbsp;y&nbsp;errores.<br>
+-&nbsp;django.contrib.auth.decorators:&nbsp;Decoradores&nbsp;para&nbsp;vistas&nbsp;que&nbsp;requieren&nbsp;autenticación.<br>
+&nbsp;<br>
+Uso:<br>
+Estas&nbsp;vistas&nbsp;son&nbsp;utilizadas&nbsp;en&nbsp;las&nbsp;plantillas&nbsp;de&nbsp;la&nbsp;aplicación&nbsp;principal&nbsp;para&nbsp;gestionar&nbsp;la&nbsp;autenticación&nbsp;y&nbsp;el&nbsp;registro&nbsp;de&nbsp;usuarios,&nbsp;así&nbsp;como&nbsp;la&nbsp;interacción&nbsp;con&nbsp;la&nbsp;API&nbsp;de&nbsp;OpenAI&nbsp;para&nbsp;generar&nbsp;respuestas&nbsp;en&nbsp;el&nbsp;chat.</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="ast.html">ast</a><br>
+</td><td class="multicolumn"><a href="logging.html">logging</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-chat"><strong>chat</strong></a>(request)</dt><dd><span class="code">Renderiza&nbsp;la&nbsp;página&nbsp;del&nbsp;chat.&nbsp;Requiere&nbsp;que&nbsp;el&nbsp;usuario&nbsp;esté&nbsp;autenticado.<br>
+&nbsp;<br>
+Args:<br>
+request&nbsp;(HttpRequest):&nbsp;La&nbsp;solicitud&nbsp;HTTP.<br>
+&nbsp;<br>
+Returns:<br>
+HttpResponse:&nbsp;La&nbsp;respuesta&nbsp;HTTP&nbsp;con&nbsp;la&nbsp;página&nbsp;del&nbsp;chat.</span></dd></dl>
+ <dl><dt><a name="-openai_response"><strong>openai_response</strong></a>(request, query)</dt><dd><span class="code">Genera&nbsp;una&nbsp;respuesta&nbsp;de&nbsp;OpenAI&nbsp;basada&nbsp;en&nbsp;la&nbsp;consulta&nbsp;del&nbsp;usuario&nbsp;y&nbsp;mantiene&nbsp;el&nbsp;historial&nbsp;de&nbsp;la&nbsp;conversación.<br>
+&nbsp;<br>
+Args:<br>
+request&nbsp;(HttpRequest):&nbsp;La&nbsp;solicitud&nbsp;HTTP.<br>
+query&nbsp;(str):&nbsp;La&nbsp;consulta&nbsp;del&nbsp;usuario&nbsp;para&nbsp;OpenAI.<br>
+&nbsp;<br>
+Returns:<br>
+list:&nbsp;Una&nbsp;lista&nbsp;con&nbsp;la&nbsp;respuesta&nbsp;de&nbsp;OpenAI&nbsp;y&nbsp;el&nbsp;número&nbsp;de&nbsp;ancla&nbsp;como&nbsp;cadena.</span></dd></dl>
+ <dl><dt><a name="-send_message"><strong>send_message</strong></a>(request)</dt><dd><span class="code">Maneja&nbsp;el&nbsp;envío&nbsp;de&nbsp;mensajes&nbsp;desde&nbsp;el&nbsp;chat&nbsp;y&nbsp;retorna&nbsp;una&nbsp;respuesta&nbsp;de&nbsp;OpenAI.<br>
+&nbsp;<br>
+Args:<br>
+request&nbsp;(HttpRequest):&nbsp;La&nbsp;solicitud&nbsp;HTTP.<br>
+&nbsp;<br>
+Returns:<br>
+JsonResponse:&nbsp;La&nbsp;respuesta&nbsp;en&nbsp;formato&nbsp;JSON&nbsp;con&nbsp;el&nbsp;mensaje&nbsp;de&nbsp;OpenAI&nbsp;o&nbsp;un&nbsp;error.</span></dd></dl>
+ <dl><dt><a name="-send_messageWAIT"><strong>send_messageWAIT</strong></a>(request)</dt></dl>
+ <dl><dt><a name="-test"><strong>test</strong></a>(request)</dt></dl>
+ <dl><dt><a name="-test_openai"><strong>test_openai</strong></a>(query='Creación del registro de usuarios en el  proyecto web de la universidad')</dt></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>config</strong> = &lt;decouple.AutoConfig object&gt;<br>
+<strong>path</strong> = functools.partial(&lt;function _path at 0x000002401...ern=&lt;class 'django.urls.resolvers.RoutePattern'&gt;)</td></tr></table>
+</body></html>

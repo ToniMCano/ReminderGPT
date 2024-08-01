@@ -180,24 +180,23 @@ class HomeViewTest(TestCase):
 #chat_views.py
 
 
-
 class ChatViewTest(TestCase):
-    
+
     def setUp(self):
         
         self.client = Client()
-        self.url = reverse('chat')  # Asegúrate de que 'chat' es el nombre correcto de la URL
+        self.url = reverse('chat')
+        # Crear y autenticar un usuario de prueba
+        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.client.login(username='testuser', password='12345')
 
 
     def test_chat_view(self):
         
         response = self.client.get(self.url)
-        
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'core/chat.html')
-        
-        
-        
+
 
 class SendMessageViewTest(TestCase):
     

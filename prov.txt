@@ -1,0 +1,18 @@
+# Django secret key
+DJANGO_SECRET_KEY=tu-nueva-clave-segura-generada-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# Database settings
+DB_NAME=nombre_de_tu_basededatos
+DB_USER=usuario_de_tu_basededatos
+DB_PASSWORD=contraseña_de_tu_basededatos
+DB_HOST=localhost
+DB_PORT=5432
+
+
+ALLOWED_HOSTS = ['localhost' , '127.0.0.1']
+SECRET_KEY = 'django-insecure-48d8p1c1)oyke%v45!l(8^_&x%dhb$g7l-=hzk5j&l4$ymos2#'
+
+#DataBase
+
+'ENGINE': 'django.db.backends.sqlite3',
+'NAME': BASE_DIR / 'db.sqlite3',

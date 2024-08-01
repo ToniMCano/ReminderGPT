@@ -1,3 +1,31 @@
+"""
+Módulo que gestiona las vistas de la aplicación, incluyendo la autenticación de usuarios y la integración con OpenAI.
+
+Este módulo incluye las siguientes funciones:
+
+- chat(request): Renderiza la página del chat.
+- send_message(request): Maneja el envío de mensajes desde el chat y retorna una respuesta de OpenAI.
+- openai_response(request, query): Genera una respuesta de OpenAI basada en la consulta del usuario y mantiene el historial de la conversación.
+- test_openai(query): (No utilizada) Genera una respuesta de OpenAI para pruebas específicas.
+- test(request): Renderiza una página de prueba.
+- send_messageWAIT(request): Proporciona un mensaje de prueba en formato JSON.
+
+Importaciones:
+- django.shortcuts: Utilizado para renderizar plantillas y redirigir vistas.
+- django.contrib.auth.models: Modelos de autenticación proporcionados por Django.
+- django.contrib.auth: Funciones de autenticación proporcionadas por Django.
+- .forms: Formularios personalizados para el inicio de sesión y registro de usuarios.
+- django.urls: Herramientas para la gestión de rutas URL.
+- django.http: Utilizado para generar respuestas HTTP.
+- openai: Biblioteca para interactuar con la API de OpenAI.
+- decouple: Utilizado para manejar variables de entorno.
+- ast: Utilizado para evaluar expresiones en cadena.
+- logging: Utilizado para el registro de eventos y errores.
+- django.contrib.auth.decorators: Decoradores para vistas que requieren autenticación.
+
+Uso:
+Estas vistas son utilizadas en las plantillas de la aplicación principal para gestionar la autenticación y el registro de usuarios, así como la interacción con la API de OpenAI para generar respuestas en el chat.
+"""
 from django.shortcuts import render , redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login , authenticate
@@ -20,17 +48,35 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def chat(request):
+    """
+    Renderiza la página del chat. Requiere que el usuario esté autenticado.
+
+    Args:
+    request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+    HttpResponse: La respuesta HTTP con la página del chat.
+    """
     
     return render(request , "core/chat.html")
 
 
 def send_message(request):
+    """
+    Maneja el envío de mensajes desde el chat y retorna una respuesta de OpenAI.
+
+    Args:
+    request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+    JsonResponse: La respuesta en formato JSON con el mensaje de OpenAI o un error.
+    """
     
     try:
         if request.method == 'POST':
             message_text = request.POST.get('message')
             message = openai_response(request , message_text)
-            print(message)
+            #print(message)
             return JsonResponse({'message': message} , status = 200)
         
         return JsonResponse({'error': 'Invalid request'}, status=400)
@@ -45,6 +91,16 @@ def send_message(request):
 
 @login_required
 def openai_response(request , query):
+    """
+    Genera una respuesta de OpenAI basada en la consulta del usuario y mantiene el historial de la conversación.
+
+    Args:
+    request (HttpRequest): La solicitud HTTP.
+    query (str): La consulta del usuario para OpenAI.
+
+    Returns:
+    list: Una lista con la respuesta de OpenAI y el número de ancla como cadena.
+    """
     
     try:
     
