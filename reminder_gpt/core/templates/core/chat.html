@@ -36,121 +36,119 @@
     </script>
 </head>
   <body>
+        <form class = "logout_button" action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button style = "width:8em; margin-left:5em;" type="submit">Salir</button>
+        </form>
 
-            <form class = "logout_button" action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button style = "width:8em; margin-left:5em;" type="submit">Salir</button>
-            </form>
+    <aside>
+        <div id="chat-link"></div>
+    </aside>
+    <main>
+        <div id="chat-box"></div>
+    </main>
+    <div class = "div_form">
+        <form action = "" id="chat-form">
+            <textarea id="message-input" name="message" required></textarea>
+            <button type="submit" value="Enviar">Enviar</button>
+        </form>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script>
 
-        <aside>
-            <div id="chat-link"></div>
-        </aside>
-        <main>
-            <div id="chat-box"></div>
-        </main>
-        <div class = "div_form">
-            <form id="chat-form">
-                <textarea id="message-input" name="message" required></textarea>
-                <button type="submit" value="Enviar">Enviar</button>
-            </form>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-            <script>
+            function escapeHtml(text) {
+                return text
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            }
 
-                function escapeHtml(text) {
-                    return text
-                        .replace(/&/g, '&amp;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;')
-                        .replace(/"/g, '&quot;')
-                        .replace(/'/g, '&#039;');
+            $(document).ready(function() {
+                if (typeof marked === 'undefined') {
+                    console.error('La librería marked no está disponible');
+                    return;
                 }
-
-                $(document).ready(function() {
-                    if (typeof marked === 'undefined') {
-                        console.error('La librería marked no está disponible');
-                        return;
-                    }
-                    
-                    console.log('marked está disponible:', marked);
-                    
-                    $('#chat-form').on('submit', function(event) {
-                        event.preventDefault(); // Evita el envío normal del formulario y recarga de la página
                 
-                        let message = $('#message-input').val(); // Obtiene el valor del campo de entrada de mensaje
+                console.log('marked está disponible:', marked);
                 
-                        const chatBox = $('#chat-box'); 
-                        const chatLink = $('#chat-link');
-                        const main = $('main'); 
-
-                        let messageContent = '<pre>' + escapeHtml(message) + '</pre>';
-                
-                        chatBox.append('<div class="user">' + messageContent + '</div>');
-                        $('#message-input').val('');
-                
-                        // Desplaza el contenedor principal al final para que el nuevo mensaje del usuario sea visible
-                        $('html, body').animate({ scrollTop: $(document).height() }, 300);
-                
-                        $.ajax({
-                            url: '{% url "send_message" %}', // URL a la que se envía la solicitud AJAX
-                            method: 'POST', // Método HTTP para la solicitud
-                            data: {
-                                'message': message, // Datos a enviar en la solicitud (el mensaje del usuario)
-                                'csrfmiddlewaretoken': '{{ csrf_token }}' // Token CSRF para seguridad
-                            },
-                            success: function(response) {
-                                const maxLength = 30;
-      
-                                const to_truncate =  messageContent.replace(/\n/g , "");
-
-                
-                                let botMessage = response.message[0];
-                                let anchorId = response.message[1];
-                
-                                // Trunca el mensaje original y añade '...' al final si es necesario
-                                let truncatedMessage = to_truncate.length > maxLength
-                                    ? to_truncate.substring(0, maxLength) + '...'
-                                    : to_truncate;
-
-
-                                try {
-                                    const htmlOutput = marked.parse(botMessage);
-                                    console.log('HTML convertido:', htmlOutput);
-                                    chatBox.append('<div class="bot"><a id="'+ anchorId + '">' + htmlOutput + '</a></div>');
-                                } catch (error) {
-                                    console.error('Error al convertir Markdown:', error);
-                                    chatBox.append('<div class="bot">' + botMessage + '</div>');
-                                }
-                
-                                // Añade el enlace truncado en la barra lateral
-                                chatLink.prepend('<div class="aside_link"><a href="#' + anchorId + '">' + truncatedMessage + '</a></div>');
-                                
-                                // Desplaza el contenedor principal al final para que el nuevo mensaje sea visible
-                                $('html, body').animate({ scrollTop: $('#' + anchorId).offset().top }, 300);
-                            },
-                            error: function(xhr, status, error) {
-                                // Maneja la respuesta de error
-                                let errorMessage = 'Ha ocurrido un error.';
+                $('#chat-form').on('submit', function(event) {
+                    event.preventDefault(); // Evita el envío normal del formulario y recarga de la página
             
-                                // Verifica si la respuesta es JSON
-                                try {
-                                    const errorResponse = JSON.parse(xhr.responseText);
-                                    errorMessage = errorResponse.error || 'Ha ocurrido un error inesperado.';
-                                } catch (e) {
-                                    console.error('Error al procesar la respuesta de error:', e);
-                                }
+                    let message = $('#message-input').val(); // Obtiene el valor del campo de entrada de mensaje
             
-                                // Muestra el mensaje de error en el chatBox
-                                chatBox.append('<div class="bot"><div class="error">' + escapeHtml(errorMessage) + '</div></div>');
+                    const chatBox = $('#chat-box'); 
+                    const chatLink = $('#chat-link');
+                    const main = $('main'); 
+
+                    let messageContent = '<pre>' + escapeHtml(message) + '</pre>';
             
-                                // Desplaza el contenedor principal al final para que el nuevo mensaje de error sea visible
-                                $('html, body').animate({ scrollTop: $(document).height() }, 300);            
+                    chatBox.append('<div class="user">' + messageContent + '</div>');
+                    $('#message-input').val('');
+            
+                    // Desplaza el contenedor principal al final para que el nuevo mensaje del usuario sea visible
+                    $('html, body').animate({ scrollTop: $(document).height() }, 300);
+            
+                    $.ajax({
+                        url: '{% url "send_message" %}', // URL a la que se envía la solicitud AJAX
+                        method: 'POST', // Método HTTP para la solicitud
+                        data: {
+                            'message': message, // Datos a enviar en la solicitud (el mensaje del usuario)
+                            'csrfmiddlewaretoken': '{{ csrf_token }}' // Token CSRF para seguridad
+                        },
+                        success: function(response) {   // Recibie la respuesta devuelta de la slolicitud '{% url "send_message" %}' invocada con el submit del formulario.
+                            const maxLength = 30;
+    
+                            const to_truncate =  messageContent.replace(/\n/g , "");
+
+            
+                            let botMessage = response.message[0];
+                            let anchorId = response.message[1];
+            
+                            // Trunca el mensaje original y añade '...' al final si es necesario
+                            let truncatedMessage = to_truncate.length > maxLength
+                                ? to_truncate.substring(0, maxLength) + '...'
+                                : to_truncate;
+
+
+                            try {
+                                const htmlOutput = marked.parse(botMessage);
+                                console.log('HTML convertido:', htmlOutput);
+                                chatBox.append('<div class="bot"><a id="'+ anchorId + '">' + htmlOutput + '</a></div>');
+                            } catch (error) {
+                                console.error('Error al convertir Markdown:', error);
+                                chatBox.append('<div class="bot">' + botMessage + '</div>');
                             }
-                        });
+            
+                            // Añade el enlace truncado en la barra lateral
+                            chatLink.prepend('<div class="aside_link"><a href="#' + anchorId + '">' + truncatedMessage + '</a></div>');
+                            
+                            // Desplaza el contenedor principal al final para que el nuevo mensaje sea visible
+                            $('html, body').animate({ scrollTop: $('#' + anchorId).offset().top }, 300);
+                        },
+                        error: function(xhr, status, error) {
+                            // Maneja la respuesta de error
+                            let errorMessage = 'Ha ocurrido un error.';
+        
+                            // Verifica si la respuesta es JSON
+                            try {
+                                const errorResponse = JSON.parse(xhr.responseText);
+                                errorMessage = errorResponse.error || 'Ha ocurrido un error inesperado.';
+                            } catch (e) {
+                                console.error('Error al procesar la respuesta de error:', e);
+                            }
+        
+                            // Muestra el mensaje de error en el chatBox
+                            chatBox.append('<div class="bot"><div class="error">' + escapeHtml(errorMessage) + '</div></div>');
+        
+                            // Desplaza el contenedor principal al final para que el nuevo mensaje de error sea visible
+                            $('html, body').animate({ scrollTop: $(document).height() }, 300);            
+                        }
                     });
                 });
-            </script>
-            
+            });
+        </script>
         </div>
   </body>
 </html>

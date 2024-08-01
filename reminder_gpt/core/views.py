@@ -1,3 +1,25 @@
+"""
+Este módulo contiene las vistas para la aplicación principal, gestionando la autenticación de usuarios y el registro.
+
+Las funciones incluidas son:
+
+- home(request): Renderiza la página de inicio y maneja el formulario de inicio de sesión.
+- sign_up(request): Renderiza la página de registro de usuario y maneja el formulario de registro.
+- create_user(request): Renderiza la página de creación de usuario con el formulario de registro.
+
+Cada vista procesa las solicitudes HTTP y devuelve respuestas HTTP correspondientes, incluyendo la lógica para autenticación de usuarios y gestión de formularios.
+
+Importaciones:
+- django.shortcuts: Utilizado para renderizar plantillas y redirigir vistas.
+- django.contrib.auth.models: Modelos de autenticación proporcionados por Django.
+- django.contrib.auth: Funciones de autenticación proporcionadas por Django.
+- .forms: Formularios personalizados para el inicio de sesión y registro de usuarios.
+- django.urls: Herramientas para la gestión de rutas URL.
+- django.http: Utilizado para generar respuestas HTTP.
+
+Uso:
+Estas vistas son utilizadas en las plantillas de la aplicación principal para gestionar la autenticación y el registro de usuarios, proporcionando una interfaz sencilla y segura para los usuarios de la aplicación.
+"""
 from django.shortcuts import render , redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login , authenticate
@@ -34,6 +56,16 @@ def home(request):
     
         
 def sign_up(request):
+    """
+    Renderiza la página de registro de usuario y maneja el formulario de registro.
+
+    Args:
+    request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+    HttpResponse: La respuesta HTTP con el formulario de registro y un indicador de validez.
+    Si nos válido muestra un mensaje en el FrontEnd.
+    """
      
     form = SignUpForm()
     not_valid = False
@@ -54,20 +86,21 @@ def sign_up(request):
 
 
 def create_user(request):
+    """
+    Renderiza la página de creación de usuario con el formulario de registro.
+
+    Args:
+    request (HttpRequest): La solicitud HTTP.
+
+    Returns:
+    HttpResponse: La respuesta HTTP con el formulario de registro.
+    """
     
     form = SignUpForm()
     
     return render(request , "core/create_user.html" , {'form':form})
 
-
-
-def custom_403_view(request, exception):
-    
-    form = SignUpForm()
-    
-    form.add_error(None, 'Usuario o contraseña incorrectos')
-    
-    return render(request , "core/index.html" , {'form':form})      
+ 
         
         
         
