@@ -396,3 +396,13 @@ Ejecutar las Pruebas
    python manage.py test
 ```
 Las pruebas están ubicadas en el directorio **tests/** y verifican la funcionalidad de vistas, modelos y formularios.
+
+
+with total_unidades AS (
+    SELECT SUM(cantidad) AS total FROM VENTAS
+ )
+ SELECT producto, SUM(cantidad) AS unidades_vendidas, (SUM(cantidad)*100/total_unidades.total) AS porcentaje_total
+ FROM ventas, total_unidades
+ GROUP BY producto
+ ORDER BY unidades_vendidas DESC
+ LIMIT 6;
