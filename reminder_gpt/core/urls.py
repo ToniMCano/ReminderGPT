@@ -1,6 +1,6 @@
 from django.urls import path , include
 from . import views
-from .chat_views import send_message , chat , test
+from .chat_views import send_message , chat
 
 
 urlpatterns = [
@@ -9,6 +9,5 @@ urlpatterns = [
     path("chat/" , chat , name = 'chat'),
     path("send_message/" , send_message , name = 'send_message'),
     path("sign_up/" , views.sign_up , name = "sign_up"),
-    path("test/" , test , name = "test"),
 ]
 
