@@ -2,6 +2,7 @@ from django.urls import path , include
 from . import views
 from .chat_views import send_message , chat
 
+handler403 = views.custom_permission_denied_view
 
 urlpatterns = [
     path("" , views.home, name = "home"),

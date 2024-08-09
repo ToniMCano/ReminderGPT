@@ -1,15 +1,15 @@
 from django.test import TestCase, Client, RequestFactory
 from . import views 
-from . chat_views import openai_response
+from . chat_views import openai_response , agent  , send_message , chat
 from . forms import SignUpForm , LoginForm
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from unittest.mock import patch, MagicMock
 import json
-
-# Create your tests here.
-
+from unittest.mock import patch, MagicMock
+from decouple import config
+import unittest
 
 
 #forms.py
@@ -294,6 +294,29 @@ class OpenAIResponseTest(TestCase):
         self.assertEqual(json_response['message'][0], 'Test response')
         self.assertEqual(json_response['message'][1], '1')
 
+
+
+class TestAgentFunction(unittest.TestCase):
+    @patch('core.chat_views.create_sql_agent')
+    @patch('core.chat_views.ChatOpenAI')
+    @patch('core.chat_views.SQLDatabase')
+    @patch('core.chat_views.config')
+    @patch('core.chat_views.os.environ', {})
+    def test_agent(self, mock_config, mock_sql_database, mock_chat_openai, mock_create_sql_agent):
+       
+        mock_config.return_value = 'fake_api_key'
+        mock_sql_database.from_uri.return_value = MagicMock()
+        mock_chat_openai.return_value = MagicMock()
+        mock_create_sql_agent.return_value.invoke.return_value = {'output': 'fake response'}
+
+       
+        response = agent("¿Cuál es el producto más vendido en 2023?")
+
+        self.assertEqual(response, 'fake response')
+        mock_config.assert_called_once_with("OPENAI_API_KEY")
+        mock_sql_database.from_uri.assert_called_once_with("sqlite:///ecommerce.db")
+        mock_chat_openai.assert_called_once_with(model="gpt-4o-mini", temperature=0)
+        mock_create_sql_agent.assert_called_once()
 
 
 # Este último test no pasa por la forma en que Django maneja las sesiones, debbugeando a mano se puede comprobar que el test pasa.

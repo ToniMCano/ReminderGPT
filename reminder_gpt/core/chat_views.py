@@ -34,6 +34,14 @@ from decouple import config
 import logging
 from django.contrib.auth.decorators import login_required
 
+from decouple import config
+import os
+from langchain_community.utilities import SQLDatabase
+#from langchain.chains import create_sql_query_chain
+from langchain_openai import ChatOpenAI
+#from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
+from langchain_community.agent_toolkits import create_sql_agent
+
 
 
 #------------Chat------------
@@ -98,9 +106,7 @@ def openai_response(request , query):
     messages = request.session.get('messages', []) # Carga los mensajes de la sesión de este usuario si los hay. La sesión expira al cerrar la página o hcaer logout
     anchor = request.session.get('anchor_number', 0)
     anchor += 1
-    
-    
-    
+        
     try:
     
         client = OpenAI(
@@ -136,20 +142,42 @@ def openai_response(request , query):
         
 
 
-from decouple import config
-import os
-from langchain_community.utilities import SQLDatabase
-#from langchain.chains import create_sql_query_chain
-from langchain_openai import ChatOpenAI
-#from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
-from langchain_community.agent_toolkits import create_sql_agent
-
-
 def agent(query): # Con el agente funciona.
+    """
+    Esta función utiliza un agente de LangChain para realizar consultas en lenguaje natural a una base de datos SQL.
+
+    Parámetros:
+    query (str): La consulta en lenguaje natural que el usuario desea realizar a la base de datos.
+
+    Retorno:
+    str: La respuesta a la consulta realizada en lenguaje natural, obtenida de la base de datos SQL.
+
+    Descripción:
+    1. Establece la clave de la API de OpenAI desde las variables de entorno.
+    2. Crea una conexión a la base de datos SQL 'ecommerce.db'.
+    3. Inicializa un modelo de lenguaje GPT-4 de OpenAI con ciertos parámetros.
+    4. Configura un agente ejecutor para interactuar con la base de datos utilizando herramientas de OpenAI.
+    5. Ejecuta la consulta proporcionada en lenguaje natural y devuelve la respuesta.
+
+    Dependencias:
+    - os
+    - config
+    - langchain
+    - langchain.sql_database.SQLDatabase
+    - langchain.agents.create_sql_agent
+    - langchain.llms.openai.ChatOpenAI
+
+    Ejemplo de uso:
+    ```python
+    respuesta = agent("¿Cuál es el producto más vendido en 2023?")
+    print(respuesta)
+    ```
+
+    """
     
     os.environ["OPENAI_API_KEY"] = config("OPENAI_API_KEY")
 
-    db = SQLDatabase.from_uri("sqlite:///ecommerce.db")
+    db = SQLDatabase.from_uri("sqlite:///ecommerce_ok.db")
 
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 

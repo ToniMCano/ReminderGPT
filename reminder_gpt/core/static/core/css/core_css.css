@@ -7,7 +7,7 @@
 
 
 body {
-  background: #212121;
+  background: #07060E;
 
 }
 
@@ -42,7 +42,6 @@ header{
   padding: 0;
   justify-content: center;
   height: 10vh;
-  background:black;
   align-items: center;
 }
 
@@ -52,33 +51,15 @@ header > div{
   right: 1em;
   }
 
-
-footer{
-  display:flex;
-  background:black;
-  height: 10vh;
-}
+  header > h1{
+    font-size: 4em;
+    font-weight: 800;
+  }
 
 
-footer > div{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-footer > div > a{
-  text-decoration: none;
-  color: white;
-  font-weight: bolder;
+.container  {
+  min-height: 80vh;
   margin: 2em;
-}
-
-
-.container {
-  height: 80vh;
-  margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -86,6 +67,32 @@ footer > div > a{
   flex-wrap: wrap;
 
 } 
+
+.container > div:first-child{
+/*background: red;*/
+padding: 3em;
+flex: 3;
+
+} 
+
+.container > div:last-child{
+  display: flex;
+  justify-content: center;
+  flex: 2;
+  } 
+  
+  .container > div > div , form , .example{
+    padding: 2em;
+    border-radius: 0.5em;
+    border: 1px solid gray;
+    color: white;
+    background: #0E0D15;
+    } 
+
+
+.example{
+  margin: 0 5em;
+  } 
 
 
 form > h2{
@@ -103,13 +110,11 @@ form > h2{
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid white;
-  backdrop-filter: blur(10px);
   padding: 5em;
   border-radius: 1em;
-  background:black;
-
+  margin: 3em;
   flex-wrap: wrap;
+  width: min-content;
 } 
 
 
@@ -321,3 +326,34 @@ justify-content: center;
   text-decoration: none;
   }
 
+
+  footer{
+    display:flex;
+    height: 10vh;
+    margin: 0;
+    justify-content: flex-end;
+  }
+
+
+
+  footer > div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  
+  footer > div > a{
+    text-decoration: none;
+    color: white;
+    font-weight: bolder;
+    margin: 0.8em 2em;
+  }
+
+  img{
+    max-width: 100%;
+    height: auto;
+    margin: 1em;
+    border-radius: 1em;
+  }

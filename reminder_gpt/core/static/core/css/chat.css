@@ -15,7 +15,7 @@ a{
 
 
 body {
-  background: #212121;
+  background: #07060E;
   position: relative;
 
 }
@@ -27,11 +27,12 @@ button{
   border-radius: 2em;
   height: 4em;
   align-items: center;
-  background: rgba(0, 0, 0, 0.877);
+  background: #0E0D15;
   color: white;
-  font-weight: 600;
+  font-weight: 400;
   margin: 0.5em;
   padding: 0.4em;
+  border: 1px solid gray 
 }
 
 
@@ -131,7 +132,7 @@ aside{
   margin: 0.5em 1em;
   border-radius: 1em;
   padding: 1em;
-  background: rgba(0, 0, 0, 0.616);
+  background: #0E0D15;
   white-space: nowrap; /* Evita que el texto se envuelva en varias líneas */
   overflow: hidden; /* Oculta el texto que excede el contenedor */
   text-overflow: ellipsis;
@@ -197,13 +198,6 @@ main > div:last-child{
 }
 
 
-
-.button{
-  display: flex;
-  justify-content: center;
-}
-
-
 .errores{
   position: absolute;
   top: 1em;
@@ -225,13 +219,13 @@ main > div:last-child{
 
 
 .user{
-  background: rgba(0, 0, 0, 0.699);
+  background: #0E0D15;
   width: 100%;
 } 
 
 
 .bot{
-  background: rgba(0, 0, 0, 0.342);
+  background: #0E0D15;
   display: flex;
   flex-wrap: wrap;
   overflow-y: auto;
@@ -279,7 +273,7 @@ main > div:last-child{
 }
 
 .div_form{
-  background: #212121;
+  background: #07060E;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -298,12 +292,15 @@ main > div:last-child{
   padding: 0;
       }
 
+
 .logout_button button{
-  padding: 0.2em;
-  height: 2em;
-  font-size: 11px;
+      border-radius: 1em;
+      height: 2em;
+      display: flex;
+      align-items: center;
+
       }
-      
+
 
 pre{
   margin: 0;

@@ -38,9 +38,8 @@
   <body>
         <form class = "logout_button" action="{% url 'logout' %}" method="post">
             {% csrf_token %}
-            <button style = "width:8em; margin-left:5em;" type="submit">Salir</button>
+            <button  type="submit">Salir</button>
         </form>
-
     <aside>
         <div id="chat-link"></div>
     </aside>
@@ -49,7 +48,7 @@
     </main>
     <div class = "div_form">
         <form action = "" id="chat-form">
-            <textarea id="message-input" name="message" required></textarea>
+            <textarea id="message-input" name="message" required placeholder = "Para consultas SQL empieza con **. Ejemplo: **Dime el número de pedidos realizados en enero"></textarea>
             <button type="submit" value="Enviar">Enviar</button>
         </form>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

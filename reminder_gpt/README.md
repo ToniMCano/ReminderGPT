@@ -167,9 +167,10 @@ Este módulo incluye las siguientes funciones:
 >.
 >**- chat(request):** Renderiza la página del chat.
 >
->**- send_message(request):** Maneja el envío de mensajes desde el chat >y retorna una respuesta de OpenAI.
+>**- send_message(request):** Maneja el envío de mensajes desde el chat y retorna una respuesta de OpenAI.
 >
->**- openai_response(request, query):** Genera una respuesta de OpenAI >basada en la consulta del usuario y mantiene el historial de la >conversación.
+>**- openai_response(request, query):** Genera una respuesta de OpenAI basada en la consulta del usuario y mantiene el historial de la conversación.
+>**- agent(query):** Interpreta una pregunta en lenguaje natural y genera una consulta SQL para obtener información de la base de datos en fucnión a esa pregunta.
 >
 >**Importaciones:** <br>
 >**- django.shortcuts:** Utilizado para renderizar plantillas y redirigir vistas.
@@ -188,7 +189,7 @@ Este módulo incluye las siguientes funciones:
 <br>
 
 **Uso:**
-Estas vistas son utilizadas en las plantillas de la aplicación principal para gestionar la autenticación y el registro de usuarios, así como la interacción con la API de OpenAI para generar respuestas en el chat.
+Estas vistas son utilizadas en las plantillas de la aplicación principal para gestionar la autenticación y el registro de usuarios, así como la interacción con la API de OpenAI para generar respuestas en el chat y consultas **SQL** a la base de datos asociada.
 
 <br>
 
@@ -231,12 +232,46 @@ JsonResponse: La respuesta en formato JSON con el mensaje de OpenAI o un error.
 
 <br>
 
+
+```
+def agent(query):
+Maneja el envío de mensajes desde el chat y retorna una respuesta de OpenAI.
+ 
+    Esta función utiliza un agente de LangChain para realizar consultas en lenguaje natural a una base de datos SQL.
+
+    Parámetros:
+    query (str): La consulta en lenguaje natural que el usuario desea realizar a la base de datos.
+
+    Retorno:
+    str: La respuesta a la consulta realizada en lenguaje natural, obtenida de la base de datos SQL.
+
+    Descripción:
+    1. Establece la clave de la API de OpenAI desde las variables de entorno.
+    2. Crea una conexión a la base de datos SQL 'ecommerce.db'.
+    3. Inicializa un modelo de lenguaje GPT-4 de OpenAI con ciertos parámetros.
+    4. Configura un agente ejecutor para interactuar con la base de datos utilizando herramientas de OpenAI.
+    5. Ejecuta la consulta proporcionada en lenguaje natural y devuelve la respuesta.
+
+    Dependencias:
+    - os
+    - config
+    - langchain
+    - langchain.sql_database.SQLDatabase
+    - langchain.agents.create_sql_agent
+    - langchain.llms.openai.ChatOpenAI
+
+    Ejemplo de uso:
+    
+    respuesta = agent("¿Cuál es el producto más vendido en 2023?")
+    return respuesta
+```
+
 ---
 
 <br>
 
 
-**`core/chat_views.py:`** Módulo que gestiona los modelos de la aplicación, incluyendo la validación y extensión del modelo de usuario.
+**`core/views.py:`** Módulo que gestiona los modelos de la aplicación, incluyendo la validación y extensión del modelo de usuario.
  
 Este módulo incluye las siguientes clases y funciones:
 >.

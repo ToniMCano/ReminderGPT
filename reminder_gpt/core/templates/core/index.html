@@ -20,62 +20,82 @@
 
 <div class = "container">
   <div>
-    <p>Esta web es una DEMO de como se puede usar IA para realizar consultas SQL en lenguaje natural a Bases de Datos</p>
-     <p>Para este ejemplo se ha usado una basae de datos de ventas que contiene pedidos comprendidos entre 2010 y 2011</p>
-     <p>Las columnas con las que cuenta son:</p>
-     <ul>
-      <li>id_factura: TEXT</li>
-      <li>id_producto: TEXT</li>
-      <li>producto: TEXT</li>
-      <li>cantidad: INTEGER</li>
-      <li>fecha_factura: TEXT</li>
-      <li>precio_unitario: REAL</li>
-      <li>id_cliente: REAL</li>
-      <li>pais: TEXT</li>
-      <li>ventas_totales: FLOAT</li>
-     </ul>
-     <p>Puedes probar probar a hacer consultas para comprobar su funcionamiento como por ejemplo:</p>
-     <ul>
-       <li>¿Cuántas unidades de cada producto se han vendido?</li>
-       <li>¿Cuál es el total de ventas por producto?</li>
-       <li>¿Cuál es el precio unitario promedio de los productos vendidos?</li>
-       <li>¿Qué cliente ha realizado la mayor cantidad de compras?</li>
-       <li>¿Cuáles son los productos más vendidos en cada país?</li>
-       <li>¿Cuál es la fecha con las ventas totales más altas?</li>
-       <li>¿Qué cliente ha gastado más dinero en total?</li>
-       <li>¿Qué producto tiene el precio unitario más alto?</li>
-       <li>¿Cuál es la cantidad total de ventas en cada país?</li>
-     </ul>
-  </div> 
-  <form method="post" action = ""> 
-    {% csrf_token %}  
+    <div>
+      <p>Esta web es una DEMO de como se puede usar IA para realizar consultas SQL en lenguaje natural a Bases de Datos</p>
+      <p>Para este ejemplo se ha usado una basae de datos de ventas que contiene pedidos comprendidos entre diciembre 2010 y agosto de 2011 ambos meses incluidos</p>
+      <p>Las columnas con las que cuenta son:</p>
+      <ul>
+        <li>id_factura: TEXT</li>
+        <li>id_producto: TEXT</li>
+        <li>producto: TEXT</li>
+        <li>cantidad: INTEGER</li>
+        <li>fecha_factura: TEXT</li>
+        <li>precio_unitario: REAL</li>
+        <li>id_cliente: REAL</li>
+        <li>pais: TEXT</li>
+        <li>ventas_totales: FLOAT</li>
+      </ul>
+      <p>Puedes probar probar a hacer consultas para comprobar su funcionamiento como por ejemplo:</p>
+      <ul>
+        <li>¿Cuántas unidades de cada producto se han vendido?</li>
+        <li>¿Cuál es el total de ventas por producto?</li>
+        <li>¿Cuál es el precio unitario promedio de los productos vendidos?</li>
+        <li>¿Qué cliente ha realizado la mayor cantidad de compras?</li>
+        <li>¿Cuáles son los productos más vendidos en cada país?</li>
+        <li>¿Cuál es la fecha con las ventas totales más altas?</li>
+        <li>¿Qué cliente ha gastado más dinero en total?</li>
+        <li>¿Qué producto tiene el precio unitario más alto?</li>
+        <li>¿Cuál es la cantidad total de ventas en cada país?</li>
+      </ul>
+    </div> 
+  </div>
+  <div>
+    <form method="post" action = ""> 
+      {% csrf_token %}  
 
-    {% if form.non_field_errors %}
-    
-      {% for error in form.non_field_errors %} <!--ES la fomra en que Django comprueba si hay errores no asociados a un campo en concreto-->
-      <div class="errores">
-          <p>{{ error }}</p>
-      </div>
-      {% endfor %}
+      {% if form.non_field_errors %}
+      
+        {% for error in form.non_field_errors %} <!--ES la fomra en que Django comprueba si hay errores no asociados a un campo en concreto-->
+        <div class="errores">
+            <p>{{ error }}</p>
+        </div>
+        {% endfor %}
 
-    {% endif %}
-      <div>
-          <label for="">Usuario</label>
-          <div>
-              {{ form.user }}
-          </div>
-          <label for="">Contraseña</label>
-          <div>
-              {{ form.password }}
-          </div>
-          <div class = "button">
-            <button type="submit" class="btn btn-primary">Entrar</button>
-          </div>
-          <div class = "button">
-            <a href="{% url 'create_user' %}">Registrarse</a>
-          </div>
-      </div>
-  </form>
+      {% endif %}
+        <div>
+            <label for="">Usuario</label>
+            <div>
+                {{ form.user }}
+            </div>
+            <label for="">Contraseña</label>
+            <div>
+                {{ form.password }}
+            </div>
+            <div class = "button">
+              <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
+            <div class = "button">
+              <a href="{% url 'create_user' %}">Registrarse</a>
+            </div>
+        </div>
+    </form>
+  </div>
+</div>
+<div class = "example">
+  <h1>Ejmplo de Uso:</h1>
+<div>
+  Para formular las preguntas directamente a la base de datos debes de comezar el mensaje con **
+
+  <p>**dime las ventas totales por mes en 2011</p>
+  <p>
+    Esto enviará la consulta directamente al <span>Agente</span> y este transformará la pregunta en una consulta SQL y devolverá el resultado. 
+    Esta respuesta se sumará al hilo de la conversación con ChatGPT y posteriormente puedes realizar preguntas sobre esa información sin necesidad de hacer otra consulta a no ser que quieras obtener datos nuevos.
+  </p>
+  {% load static %}
+  <div>
+    <img src="{% static 'core/img/Captura.PNG' %}" alt="">
+  </div>
+</div>
 </div>
 
 {% endblock content %}

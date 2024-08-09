@@ -101,6 +101,7 @@ def create_user(request):
     return render(request , "core/create_user.html" , {'form':form})
 
  
-        
-        
-        
+
+def custom_permission_denied_view(request, exception):
+    
+    return redirect('home')  
