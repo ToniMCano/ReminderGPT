@@ -21,3 +21,7 @@ sqlparse==0.5.0
 tqdm==4.66.4
 typing_extensions==4.12.2
 tzdata==2024.1
+langchain_community
+langchain_openai
+
+/home/main_user/web/rowalx.es/public_html
