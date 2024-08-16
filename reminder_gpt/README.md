@@ -430,6 +430,6 @@ Ejecutar las Pruebas
 ```sh
    python manage.py test
 ```
-Las pruebas están ubicadas en el directorio **tests/** y verifican la funcionalidad de vistas, modelos y formularios.
+Las pruebas están ubicadas en el directorio **tests/** y verifican la funcionalidad de vistas, modelos y formularios..
 
 
