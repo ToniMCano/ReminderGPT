@@ -24,4 +24,3 @@ tzdata==2024.1
 langchain_community
 langchain_openai
 
-/home/main_user/web/rowalx.es/public_html
